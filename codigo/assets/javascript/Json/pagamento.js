@@ -29,7 +29,7 @@ var planoss2 = {
     "plano22": {
         "titulo": "Médio",
         "valor": "R$ YY,YY",
-        
+
     },
     "plano33": {
         "titulo": "Avançado",
@@ -47,7 +47,7 @@ function salvarpagamentocred() {
         //const parcelame = document.getElementById('validationCustom04').value;
         const numcard = document.getElementById('numero-cartao').value;
 
-        if (nocart.length >= 10 && valid.length == 4 && cvvv.length == 3 || cvvv == 4 && nomecomple > 10 && numcard.length == 16) {
+        if (nocart.length >=10 && valid.length == 5 && cvvv.length == 3 && nomecomple.length >=10 && numcard.length == 19) {
 
             const dataproxpag = soma30dias()
             const hojee = hoje()
@@ -109,7 +109,8 @@ function salvarpagamentocred() {
         const nomecomple = document.getElementById('nome-completo').value;
         const parcelame = document.getElementById('validationCustom04').value;
         const numcard = document.getElementById('numero-cartao').value;
-        if (nocart.length >= 5 && valid.length == 4 && cvvv.length == 3 || cvvv == 4 && nomecomple > 10 && numcard.length == 16) {
+        console.log(numcard.length)
+        if (nocart.length >=10 && valid.length == 5 && cvvv.length == 3 && nomecomple.length >=10 && numcard.length == 19) {
             const dataproxpag = soma365dias()
             const hojee = hoje()
             const pagamentoinfo = {
@@ -171,10 +172,10 @@ function salvarpagamentodeb() {
         const nomecomple = document.getElementById('nome-completo1').value;
         //const parcelame = document.getElementById('validationCustom04').value;
         const numcard = document.getElementById('numero-cartao1').value;
-        if (nocart.length >= 5 && valid.length == 4 && cvvv.length == 3 || cvvv == 4 && nomecomple > 10 && numcard.length == 16) {
+        if (nocart.length >=10 && valid.length == 5 && cvvv.length == 3 && nomecomple.length >=10 && numcard.length == 19) {
             const dataproxpag = soma30dias()
             const hojee = hoje()
-            
+
             const pagamentoinfo = {
                 "nocart": nocart,
                 "valid": valid,
@@ -229,7 +230,7 @@ function salvarpagamentodeb() {
         const nomecomple = document.getElementById('nome-completo1').value;
         //const parcelame = document.getElementById('validationCustom04').value;
         const numcard = document.getElementById('numero-cartao1').value;
-        if (nocart.length >= 5 && valid.length == 4 && cvvv.length == 3 || cvvv == 4 && nomecomple > 10 && numcard.length == 16) {
+        if (nocart.length >=10 && valid.length == 5 && cvvv.length == 3 && nomecomple.length >=10 && numcard.length == 19) {
             const dataproxpag = soma365dias()
             const hojee = hoje()
             const pagamentoinfo = {
@@ -283,34 +284,34 @@ function salvarpagamentodeb() {
     }
 }
 
-function hoje(){
+function hoje() {
     const hoje = new Date();
 
     const hojeee = new Date(hoje);
     const hojee = hojeee.toLocaleDateString();
-    
+
     return hojee;
 }
 
-function soma30dias(){
-     const hoje = new Date();
+function soma30dias() {
+    const hoje = new Date();
 
     const daquidias = new Date(hoje);
     daquidias.setDate(daquidias.getDate() + 30);
 
     const daquidiass = daquidias.toLocaleDateString();
-    
+
     return daquidiass;
 }
 
 
-function soma365dias(){
+function soma365dias() {
     const hoje = new Date();
 
     const daquidias = new Date(hoje);
     daquidias.setDate(daquidias.getDate() + 365);
 
     const daquidiass = daquidias.toLocaleDateString();
-    
+
     return daquidiass;
 }
