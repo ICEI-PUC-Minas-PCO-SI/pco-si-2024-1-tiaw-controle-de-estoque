@@ -1,0 +1,25 @@
+{
+  "fornecedores": [
+    {
+      "id": "1",
+      "prioridade": "1",
+      "nome": "Atacadão",
+      "end": "Rua Macachalis 11",
+      "ctt": "31982911982"
+    },
+    {
+      "id": "2",
+      "prioridade": "3",
+      "nome": "Atacado",
+      "end": "Avenida Madri, 78",
+      "ctt": "31984178528"
+    },
+    {
+      "id": "3",
+      "prioridade": "2",
+      "nome": "Horizonte Frios",
+      "end": "Rua xxxx",
+      "ctt": "31982547772"
+    }
+  ]
+}
