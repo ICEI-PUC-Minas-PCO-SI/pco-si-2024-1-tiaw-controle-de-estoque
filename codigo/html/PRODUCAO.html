@@ -119,15 +119,17 @@
             src="../assets/img/edit.png" alt="" style="width:30px;"><strong>Editar Produção</strong></button>
 
         <button type="button" id="btn_novo" class="btn btn-outline-primary col-lg-2 col-5 col-md-3 mb-2 ms-2"><img
-            src="../assets/img/rascunho.png" alt="" style="width:30px;"><strong>Novo Produto</strong></button>
+            src="../assets/img/rascunho.png" alt="" style="width:30px;"><strong>Nova matéria-prima</strong></button>
 
         <button type="button" id="btn_ex" class="btn btn-outline-primary col-lg-2 col-5 col-md-2 mb-2 ms-2"><img
             src="../assets/img/x.png" alt="" style="width:30px;"><strong>Excluir</strong></button>
       </div>
+
+
       <div class="row">
         <div class="card border-primary p-2" id="prd1">
 
-          <form >
+          <form>
             <div class="m-2 lineinput">
               <label>Código</label>
               <input type="text" id="cod1" placeholder="Código do produto">
@@ -164,10 +166,10 @@
 
         <div class="card border-primary p-2 " id="edit1">
 
-          <form >
+          <form>
             <div class="m-2 lineinput">
               <label>Código</label>
-              <input type="text" id="cod1" placeholder="Código do produto que será editado">
+              <input type="text" id="codedit" placeholder="Código do produto que será editado">
               <input class="p-2 mb-2 mt-2 ms-2 bg-primary routend text-white" type="submit" value="Buscar">
             </div>
 
@@ -195,32 +197,16 @@
         </div>
 
         <div class="card border-primary p-2" id="prd2">
-          <form >
+          <form>
 
             <div class="m-2 lineinput">
-              <label>Novo código</label>
+              <label>Código</label>
               <input type="text" id="cod2" placeholder="Código do produto">
             </div>
 
             <div class="m-2 lineinput">
-              <label>Nova descrição</label>
+              <label>Descrição</label>
               <input type="text" id="descprod2" placeholder="Descrição do produto">
-            </div>
-
-            <div class="m-2 lineinput">
-              <label>Lote</label>
-              <input type="text" id="loteprod2" placeholder="Novo número de lote">
-              <!--Será buscado automaticamente sendo o próximo na sequencia de lotes do determinado produto,  neste caso, iniciará com 001-->
-            </div>
-
-            <div class="m-2 lineinput">
-              <label>Matérias primas utilizadas</label>
-              <input type="text" id="mp2" placeholder="Código das matérias primas utilizadas">
-            </div>
-
-            <div class="m-2 lineinput">
-              <label>NCM (opcional)</label>
-              <input type="text" id="ncm2" placeholder="NCM do produto (opcional)">
             </div>
 
             <div class="m-2 lineinput">
@@ -228,8 +214,15 @@
               <input type="text" id="un2" placeholder="Unidade do produto">
             </div>
 
-            <p>Observação: Futuramente os campos acima serão substituídos pelos campos do módulo "cadastro de produtos",
-              tendo em vista que o resultado será armazenado na mesma estrutura através do JSON</p>
+            <div class="m-2 lineinput">
+              <label>Quantidade</label>
+              <input type="text" id="qtdprod2" placeholder="Quantidade">
+            </div>
+
+            <div class="m-2 lineinput">
+              <label>Validade</label>
+              <input type="text" id="validprod2" placeholder="Validade">
+            </div>
 
             <input class="p-2 mb-2 mt-2 ms-2 bg-primary routend text-white" type="submit" value="Salvar">
             <input class="p-2 mb-2 mt-2 bg-primary routend text-white" type="reset" value="Cancelar">
@@ -241,19 +234,19 @@
 
 
         <div class="card border-primary p-2" id="prd3">
-          <form >
+          <form id="prd3ex">
 
             <div class="m-2 lineinput">
               <label>Código</label>
-              <input type="text" id="cod3" placeholder="Código do produto">
+              <input type="text" id="cod_ex" placeholder="Código do produto">
             </div>
 
-            <div class="m-2 lineinput" >
+            <div class="m-2 lineinput">
               <label>Lote</label>
-              <input type="text" id="loteprod3" placeholder="Lote a ser excluído">
+              <input type="text" id="lote_ex" placeholder="Lote a ser excluído">
             </div>
 
-            <input class="p-2 mb-2 mt-2 ms-2 bg-primary routend text-white" type="submit" value="Salvar">
+            <button class="p-2 mb-2 mt-2 ms-2 bg-primary routend text-white" type="submit" id="btn_excluir">Excluir</button>
             <input class="p-2 mb-2 mt-2 bg-primary routend text-white" type="reset" value="Cancelar">
 
           </form>
@@ -328,6 +321,64 @@
 
     </div>
 
+    <div class="container mt-3" id="PRODUCAOmp">
+      <div class="card border-primary">
+        <div class="card-body border-primary">
+          <h5 class="opcao card-title"><img src="../assets/img/clock.png" alt=""
+              style="width: 30px; margin-right: 10px;" id="PRODUC02">Matérias-primas</h5>
+          <div class="table-responsive">
+
+
+            <form id="filtro2">
+              <input type="checkbox" id="checkcodmp" name="codigo" value="checkcod" class="valores">
+              <label for="checkcod"> Código</label><br>
+              <input type="checkbox" id="checkdescmp" name="descricao" value="checkdesc" class="valores">
+              <label for="checkdesc"> Descrição</label><br>
+              <input type="checkbox" id="checkvalidmp" name="validade" value="checkvalid" class="valores">
+              <label for="checkvalid"> Validade</label><br><br>
+            </form>
+
+            <div class="mb-3">
+              <input type="text" id="searchInputmp" class="form-control" placeholder="Pesquisar...">
+            </div>
+            <form>
+              <input id="filtro03" class="p-2 mb-2 mt-2 ms-2 bg-primary routend text-white" type="submit"
+                value="Filtrar">
+              <input id="filtro04" class="p-2 mb-2 mt-2 ms-2 bg-primary routend text-white" type="submit"
+                value="Cancelar filtro"><br><br>
+            </form>
+
+
+
+
+            <table id="showtablemp" class="table table-bordered border-primary">
+              <thead>
+                <tr>
+                  <th class="bg-primary border-white text-white" scope="col">Código</th>
+                  <th class="bg-primary border-white text-white" scope="col">Descrição</th>
+                  <th class="bg-primary border-white text-white" scope="col">Unidade</th>
+                  <th class="bg-primary border-white text-white" scope="col">Quantidade</th>
+                  <th class="bg-primary border-white text-white" scope="col">Validade</th>
+                </tr>
+              </thead>
+
+              <tbody id="tabela-corpomp">
+
+
+              </tbody>
+            </table>
+            <span class="ms-2">*A ordenação da tabela é feita de acordo com o código da matéria-prima.</span>
+            <!-- <nav aria-label="..." class="d-flex justify-content-center">
+              <ul class="pagination pagination-lg ">
+                <li class="page-item " id="btnGerarLinhas"><a class="page-link bg-primary text-white"
+                    href="#PRODUCAO">Mais dados</a></li>
+              </ul>
+            </nav> -->
+          </div>
+        </div>
+      </div>
+    </div><br><br>
+
     <script>
 
       var mais = 0;
@@ -401,7 +452,7 @@
         const inputbusca = document.getElementById('searchInput');
         const expressao = inputbusca.value.toLowerCase();
 
-        const checkcod1 = document.getElementById("checkcod").checked;
+        const checkcod = document.getElementById("checkcod").checked;
         const checkdesc = document.getElementById("checkdesc").checked;
         const checkvalid = document.getElementById("checkvalid").checked;
 
@@ -411,7 +462,7 @@
 
         const filteredTable = tableprd.filter((item) => {
           let addRow = false;
-          if (checkcod1 && item.cod1.toLowerCase().includes(expressao)) {
+          if (checkcod && item.cod1.toLowerCase().includes(expressao)) {
             addRow = true;
           }
           if (checkdesc && item.descprod1.toLowerCase().includes(expressao)) {
@@ -423,7 +474,7 @@
           return addRow;
         });
 
-        if (expressao === "" && !checkcod1 && !checkdesc && !checkvalid) {
+        if (expressao === "" && !checkcod && !checkdesc && !checkvalid) {
           tabelacompleta(tableprd);
         } else {
           preencherTabela(filteredTable);
@@ -435,6 +486,10 @@
         let tableprd = JSON.parse(localStorage.getItem("prod1")) || [];
         tableprd.sort((a, b) => a.cod1.localeCompare(b.cod1));
         tabelacompleta(tableprd);
+
+        let tableprdmp = JSON.parse(localStorage.getItem("prod2")) || [];
+        tableprdmp.sort((a, b) => a.cod2.localeCompare(b.cod2));
+        tabelacompletamp(tableprdmp);
       }
 
       const btnFiltrar = document.getElementById("filtro01");
@@ -444,22 +499,153 @@
       });
 
       const btnsemfiltro = document.getElementById("filtro02");
-      btnFiltrar.addEventListener("click", function (event) {
+      btnsemfiltro.addEventListener("click", function (event) {
         event.preventDefault();
         tabelacompleta(tableprd);
       });
 
-     /* const btnGerarLinhas = document.getElementById("btnGerarLinhas");
-      btnGerarLinhas.addEventListener("click", function (event) {
-        event.preventDefault();
-        aplicarFiltros();
-      }); */
+      /* const btnGerarLinhas = document.getElementById("btnGerarLinhas");
+       btnGerarLinhas.addEventListener("click", function (event) {
+         event.preventDefault();
+         aplicarFiltros();
+       }); */
 
 
 
 
     </script>
 
+
+
+
+
+    <script>
+
+      var maismp = 0;
+
+
+      function preencherTabelamp() {
+        const tabelaCorpomp = document.getElementById("tabela-corpomp");
+        const inputbuscamp = document.getElementById('searchInputmp');
+
+        const checkcodmp = document.getElementById("checkcodmp").checked;
+        const checkdescmp = document.getElementById("checkdescmp").checked;
+        const checkvalidmp = document.getElementById("checkvalidmp").checked;
+        let expressaomp = inputbuscamp.value.toLowerCase();
+
+        tabelaCorpomp.innerHTML = "";
+
+        let tableprdmp = JSON.parse(localStorage.getItem("prod2")) || [];
+
+
+
+        tableprdmp.sort((a, b) => a.cod2.localeCompare(b.cod2));
+
+        tableprdmp.forEach((item) => {
+          let addRowmp = false;
+
+          if (checkcodmp && item.cod2.toLowerCase().includes(expressaomp)) {
+            addRowmp = true;
+          }
+          if (checkdescmp && item.descprod2.toLowerCase().includes(expressaomp)) {
+            addRowmp = true;
+          }
+          if (checkvalidmp && item.validprod2.toLowerCase().includes(expressaomp)) {
+            addRowmp = true;
+          }
+
+          if (addRowmp) {
+            const newRowmp = tabelaCorpomp.insertRow();
+            newRowmp.innerHTML = `
+      <td>${item.cod2}</td>
+      <td>${item.descprod2}</td>
+      <td>${item.un2}</td>
+      <td>${item.qtdprod2}</td>
+      <td>${item.validprod2}</td>
+    `;
+          }
+        });
+      }
+
+      function tabelacompletamp() {
+        const tabelaCorpomp = document.getElementById("tabela-corpomp");
+        tabelaCorpomp.innerHTML = "";
+
+        let tableprdmp = JSON.parse(localStorage.getItem("prod2")) || [];
+        tableprdmp.sort((a, b) => a.cod2.localeCompare(b.cod2));
+
+        tableprdmp.forEach((item) => {
+          const newRowmp = tabelaCorpomp.insertRow();
+          newRowmp.innerHTML = `
+          <td>${item.cod2}</td>
+          <td>${item.descprod2}</td>
+          <td>${item.un2}</td>
+          <td>${item.qtdprod2}</td>
+          <td>${item.validprod2}</td>
+    `;
+        });
+      }
+
+
+
+      function aplicarFiltrosmp() {
+        const inputbuscamp = document.getElementById('searchInputmp');
+        const expressaomp = inputbuscamp.value.toLowerCase();
+
+        const checkcodmp = document.getElementById("checkcodmp").checked;
+        const checkdescmp = document.getElementById("checkdescmp").checked;
+        const checkvalidmp = document.getElementById("checkvalidmp").checked;
+
+        let tableprdmp = JSON.parse(localStorage.getItem("prod2")) || [];
+
+        tableprdmp.sort((a, b) => a.cod2.localeCompare(b.cod2));
+
+        const filteredTablemp = tableprdmp.filter((item) => {
+          let addRowmp = false;
+          if (checkcodmp && item.cod2.toLowerCase().includes(expressaomp)) {
+            addRowmp = true;
+          }
+          if (checkdescmp && item.descprod2.toLowerCase().includes(expressaomp)) {
+            addRowmp = true;
+          }
+          if (checkvalidmp && item.validprod2.toLowerCase().includes(expressaomp)) {
+            addRowmp = true;
+          }
+          return addRowmp;
+        });
+
+        if (expressaomp === "" && !checkcodmp && !checkdescmp && !checkvalidmp) {
+          tabelacompletamp(tableprdmp);
+        } else {
+          preencherTabelamp(filteredTablemp);
+        }
+      }
+
+
+      
+
+      const btnFiltrarmp = document.getElementById("filtro03");
+      btnFiltrarmp.addEventListener("click", function (event) {
+        event.preventDefault();
+        aplicarFiltrosmp();
+      });
+
+      const btnsemfiltromp = document.getElementById("filtro04");
+      btnsemfiltromp.addEventListener("click", function (event) {
+        event.preventDefault();
+        tabelacompletamp(tableprdmp);
+      });
+
+      /* const btnGerarLinhas = document.getElementById("btnGerarLinhas");
+       btnGerarLinhas.addEventListener("click", function (event) {
+         event.preventDefault();
+         aplicarFiltros();
+       }); */
+
+
+
+
+    </script>
 
 
   </main>
