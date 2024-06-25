@@ -64,6 +64,72 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
   preencherTabela();
+  preencherTabelamp();
+
+
+
+
+  var formExcluir = document.getElementById("btn_excluir");
+
+formExcluir.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  var codigo = document.getElementById("cod_ex").value.trim();
+  var lote = document.getElementById("lote_ex").value.trim();
+
+  excluirLinhaTabela(codigo, lote);
+
+  document.getElementById("cod_ex").value = "";
+  document.getElementById("lote_ex").value = "";
+  alert("Produto excluído!");
+});
+
+// Função para excluir uma linha da tabela e remover do localStorage
+function excluirLinhaTabela(codigo, lote) {
+  // Obtém a referência para a tabela
+  var tabelaa = document.getElementById("prod1");
+
+  // Percorre as linhas da tabela
+  for (var i = 1; i < tabelaa.rows.length; i++) {
+    var row = tabelaa.rows[i];
+    var codCell = row.cells[0]; // Coluna do código
+    var loteCell = row.cells[2]; // Coluna do lote
+
+    // Verifica se o código e o lote da linha correspondem aos valores especificados
+    if (codCell.textContent.trim() === codigo && loteCell.textContent.trim() === lote) {
+      // Remove a linha da tabela visual
+      tabelaa.deleteRow(i);
+
+      // Remove o item correspondente do localStorage
+      removerItemLocalStorage(codigo, lote);
+      break;
+    }
+  }
+}
+
+// Função para remover um item do localStorage
+function removerItemLocalStorage(codigo, lote) {
+  // Verifica se o item existe no localStorage
+  if (localStorage.hasOwnProperty("prod1")) {
+    // Recupera os dados do localStorage
+    var produtos = JSON.parse(localStorage.getItem("prod1"));
+
+    // Filtra o array de produtos para remover o item correspondente
+    produtos = produtos.filter(function (item) {
+      return item.cod1 !== codigo || item.loteprod1 !== lote;
+    });
+
+    // Atualiza o localStorage com o novo array de produtos
+    localStorage.setItem("prod1", JSON.stringify(produtos));
+  }
+}
+  
+    
+  
+
+
+
+
 });
 
 
@@ -98,8 +164,16 @@ cadForm.addEventListener("submit", (e) => {
   // Salva no localStorage
   localStorage.setItem("prod1", JSON.stringify(prod1));
 
-  document.getElementById("conteudo").insertAdjacentHTML('beforeend', "Nome: " + nome_usuario + "<br>E-mail: " + email_usuario + "<br><hr>");
-});
+  document.getElementById("cod1").value = "";
+  document.getElementById("descprod1").value = "";
+  document.getElementById("loteprod1").value = "";
+  document.getElementById("qtdprod1").value = "";
+  document.getElementById("validprod1").value = "";
+  location.reload();
+
+  alert("Produção realizada com sucesso!")
+
+ });
 
 
 cadForm.addEventListener("reset", (e) => {
@@ -107,11 +181,13 @@ cadForm.addEventListener("reset", (e) => {
 });
 
 
+
+
 //Botões de validação --> Iniciar Produção
-var cadForm2 = document.getElementById("prd2");
+var cadFormmp = document.getElementById("prd2");
 
 // Aguardar o usuário clicar no botão cadastrar do formulário
-cadForm2.addEventListener("submit", (e) => {
+cadFormmp.addEventListener("submit", (e) => {
 
   // Não recarregar a página
   e.preventDefault();
@@ -119,86 +195,39 @@ cadForm2.addEventListener("submit", (e) => {
   // Receber os dados do formulário
   var cod2 = document.getElementById('cod2').value;
   var descprod2 = document.getElementById('descprod2').value;
-  var loteprod2 = document.getElementById('loteprod2').value;
-  var mp2 = document.getElementById('mp2').value;
-  var ncm2 = document.getElementById('ncm2').value;
   var un2 = document.getElementById('un2').value;
-  console.log(cod2);
-  console.log(descprod2);
-  console.log(loteprod2);
-  console.log(mp2);
-  console.log(ncm2);
-  console.log(un2);
-
-  // O Array() é usado para criar Array de objetos,
-  let prodprd = new Array();
+  var qtdprod2 = document.getElementById('qtdprod2').value;
+  var validprod2 = document.getElementById('validprod2').value;
+  // O Array() é usado para criar Array de objetos
+  let prod2 = new Array();
 
   // Verifica se a propriedade no localStorage
-  if (localStorage.hasOwnProperty("prodprd")) {
+  if (localStorage.hasOwnProperty("prod2")) {
     // Recuperar os valores da propriedade usuarios do localStorage
     // Converte de String para Object
-    prodprd = JSON.parse(localStorage.getItem("prodprd"));
+    prod2 = JSON.parse(localStorage.getItem("prod2"));
   }
 
   // Adiciona um novo objeto no array criado
-  prodprd.push({ cod2, descprod2, loteprod2, mp2, ncm2, un2 });
+  prod2.push({ cod2, descprod2, un2, qtdprod2, validprod2 });
 
   // Salva no localStorage
-  localStorage.setItem("prodprd", JSON.stringify(prodprd));
+  localStorage.setItem("prod2", JSON.stringify(prod2));
 
-  document.getElementById("conteudo").insertAdjacentHTML('beforeend', "Nome: " + nome_usuario + "<br>E-mail: " + email_usuario + "<br><hr>");
-});
+  document.getElementById("cod2").value = "";
+  document.getElementById("descprod2").value = "";
+  document.getElementById("un2").value = "";
+  document.getElementById("qtdprod2").value = "";
+  document.getElementById("validprod2").value = "";
+  location.reload();
 
-
-cadForm2.addEventListener("reset", (e) => {
-
-});
-
-
-//Botões de validação --> Iniciar Produção
-var cadForm3 = document.getElementById("prd3");
-
-// Aguardar o usuário clicar no botão cadastrar do formulário
-cadForm3.addEventListener("submit", (e) => {
-
-  // Não recarregar a página
-  e.preventDefault();
-
-  // Receber os dados do formulário
-  var cod3 = document.getElementById('cod3').value;
-  var loteprod3 = document.getElementById('loteprod3').value;
-  console.log(cod3);
-  console.log(loteprod3);
-  
-
-  /* Parei aqui*/
-
-  // O Array() é usado para criar Array de objetos,
-  let prodprd = new Array();
-
-  // Verifica se a propriedade no localStorage
-  if (localStorage.hasOwnProperty("prodprd")) {
-    // Recuperar os valores da propriedade usuarios do localStorage
-    // Converte de String para Object
-    prodprd = JSON.parse(localStorage.getItem("prodprd"));
-  }
-
-  // Adiciona um novo objeto no array criado
-  prodprd.push({ cod2, descprod2, loteprod2, mp2, ncm2, un2 });
-
-  // Salva no localStorage
-  localStorage.setItem("prodprd", JSON.stringify(prodprd));
-
-  document.getElementById("conteudo").insertAdjacentHTML('beforeend', "Nome: " + nome_usuario + "<br>E-mail: " + email_usuario + "<br><hr>");
-});
-
-
-cadForm3.addEventListener("reset", (e) => {
+  alert("Matéria-prima cadastrada com sucesso!")
 
 });
 
 
+cadFormmp.addEventListener("reset", (e) => {
+
+});
 
 
-
-// filtro tabela prod1
