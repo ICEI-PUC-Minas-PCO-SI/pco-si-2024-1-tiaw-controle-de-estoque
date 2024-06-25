@@ -1,29 +1,35 @@
 {
-  "cartoes": [{}],
-  "clientes":[{
-    "id": "1",
-    "prioridade": "1",
-    "nome": "Atacadão",
-    "end": "Rua Macachalis 110",
-    "ctt": "3198291112"
-  },
-  {
-    "id": "2",
-    "prioridade": "2",
-    "nome": "Atacado",
-    "end": "Avenida XXXXXXX",
-    "ctt": "31984178516"
-  },
-  {
-    "id": "3",
-    "prioridade": "2",
-    "nome": "Sacolão",
-    "end": "Rua XXX, 999",
-    "ctt": "1198571985"
-  }
-],
-"fornecedores":[{
-  "id": "1",
+  "cartoes": [
+    {
+      "id": "ea81"
+    }
+  ],
+  "clientes": [
+    {
+      "id": "1",
+      "prioridade": "1",
+      "nome": "Atacadão",
+      "end": "Rua Macachalis 110",
+      "ctt": "3198291112"
+    },
+    {
+      "id": "2",
+      "prioridade": "2",
+      "nome": "Atacado",
+      "end": "Avenida XXXXXXX",
+      "ctt": "31984178516"
+    },
+    {
+      "id": "3",
+      "prioridade": "2",
+      "nome": "Sacolão",
+      "end": "Rua XXX, 999",
+      "ctt": "1198571985"
+    }
+  ],
+  "fornecedores": [
+    {
+      "id": "1",
       "prioridade": "1",
       "nome": "Atacadão",
       "end": "Rua Macachalis 11",
@@ -42,15 +48,16 @@
       "nome": "Horizonte Frios",
       "end": "Rua xxxx",
       "ctt": "31982547772"
-}],
-"rascunhos":[{
-  "id": "1",
+    }
+  ],
+  "rascunho": [
+    {
+      "id": "1",
       "prioridade": "1",
       "tipo": "Fornecedor",
       "nome": "Atacadão",
       "end": "Rua Macachalis 110",
       "ctt": "31982911982"
-}]
-  }
-
-
+    }
+  ]
+}
