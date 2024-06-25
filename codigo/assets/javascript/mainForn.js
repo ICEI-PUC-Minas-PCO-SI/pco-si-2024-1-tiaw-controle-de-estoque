@@ -20,12 +20,12 @@ fetch(URL)
                 <td>
                     <a onclick="getFornecedor(${fornecedores[i].id});" 
                     class="btn btn-info btn-xs" 
-                    data-toggle="modal" data-target="#fornecedor-modal">
+                    data-bs-toggle="modal" data-target="#fornecedor-modal">
                     <i class="fa fa-edit"></i>  Editar
                     </a>
 
                     <a onclick="$('#id-forn').text(${fornecedores[i].id});" class="btn btn-danger btn-xs" 
-                    data-toggle="modal" data-target="#modal-delete">
+                    data-bs-toggle="modal" data-target="#modal-delete">
                     <i class="fa fa-trash"></i> Remover
                     </a>
                 </td>
