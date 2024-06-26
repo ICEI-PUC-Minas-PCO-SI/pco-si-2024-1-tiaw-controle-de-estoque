@@ -13,30 +13,15 @@
       "ctt": "3198291195"
     }
   ],
-  "fornecedores": [
-    {
-      "id": "1",
-      "prioridade": "1",
-      "nome": "Atacado",
-      "end": "Rua Macachalis 11",
-      "ctt": "31982911982"
-    },
-    {
-      "id": "2",
-      "prioridade": "3",
-      "nome": "Atacado",
-      "end": "Avenida Madri, 78",
-      "ctt": "31984178528"
-    }
-  ],
+  "fornecedores": [],
   "rascunho": [
     {
-      "id": "1",
-      "prioridade": "3",
-      "tipo": "sdfsdfsdf",
-      "nome": "sdfdsfsdf",
-      "end": "sdfdf",
-      "ctt": "sdfsdf"
+      "id": "23",
+      "prioridade": "2",
+      "tipo": "23",
+      "nome": "2323",
+      "end": "2323",
+      "ctt": "3"
     }
   ]
 }
