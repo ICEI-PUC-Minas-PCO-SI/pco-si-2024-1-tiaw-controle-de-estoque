@@ -12,6 +12,45 @@
 </head>
 
 <body>
+  <style>
+    .container {
+        width: 75%;
+        margin: auto;
+    }
+    .planos-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .plano {
+        flex: 1 1 calc(33.333% - 20px);
+        margin: 10px;
+        padding: 20px;
+        border: 2px solid #007bff;
+        border-radius: 10px;
+        background-color: white;
+    }
+
+    .plano button{
+      background-color: #007bff;
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      margin-top: 20px;
+      width: 100%;
+    }
+
+    .plano h3 {
+        color: #007bff;
+    }
+    @media (max-width: 768px) {
+        .plano {
+            flex: 1 1 100%;
+        }
+    }
+</style>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
@@ -66,130 +105,86 @@
     </div>
     <!-- FIM CAROSSEL -->
     <!-- Inicio sessão Planos -->
-    <div class="container w-75">
+    <div class="container">
       <!-- Inicio sessão planos mensais -->
       <h1>Planos Mensais</h1>
       <script>
-        function escolherPlano(plano) {
-            window.location.href = 'pagamento.html?plano=' + encodeURIComponent(plano);
-        }
-        </script>
-      <div class="row d-flex justify-content-center mt-3">
-        <div class="col-lg-4 col-12 col-md-5 m-2 p-3 rounded-3 border border-primary border border-2"
-          style="background-color: white;" id="teste">
-          <h3 class="text-primary">Básico<span style="font-size: 45%;">/mensal</span></h3>
-          <h4 class="m-2">R$:XX,XX</h4>
-          <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Destinados a
-            pequenas empresas</span><br>
-          <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">X GB de
-            armazenamento</span><br>
-          <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Total
-            controle do estoque</span><br>
-          <span style="font-size: smaller;"><img src="../assets/img/x.png" alt="" style="width: 30px;">Gráfico e
-            relatorio de vendas automatica</span><br>
-          <span style="font-size: smaller;"><img src="../assets/img/x.png" alt="" style="width: 30px;">Não estabelece
-            conexões com centros de distribuições</span><br>
-          <button type="button" class="btn p-2 mt-3"
-            style="background-color: #20B2FF; width: 95%; margin-left: 2%;" onclick="escolherPlano('basicomensal')">Comprar Agora</button>
-        </div>
-        <div class="col-lg-4 col-12 col-md-5 m-2 p-3 rounded-3 border border-2 border border-primary"
-          style="background-color: white;" id="teste">
-          <h3 class="text-primary">Medio<span style="font-size: 45%;">/mensal</span></h3>
-          <h4 class="m-2">R$:XX,XX</h4>
-          <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Destinados a
-            pequenas empresas</span><br>
-          <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">X GB de
-            armazenamento</span><br>
-          <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Total
-            controle do estoque</span><br>
-          <span style="font-size: smaller;"><img src="../assets/img/x.png" alt="" style="width: 30px;">Gráfico e
-            relatorio de vendas automatica</span><br>
-          <span style="font-size: smaller;"><img src="../assets/img/x.png" alt="" style="width: 30px;">Não estabelece
-            conexões com centros de distribuições</span><br>
-          <button type="button" class="btn p-2 mt-3 "
-            style="background-color: #20B2FF;width: 95%;  margin-left: 2%;" onclick="escolherPlano('mediomensal')">Comprar Agora</button>
-        </div>
-        <div class="col-lg-8 col-12 col-md-10 m-2 p-3 rounded-3 border border-2 border border-primary"
-          style="background-color: white;" id="teste">
-          <h3 class="text-primary">Avançado<span style="font-size: 45%;">/mensal</span></h3>
-          <h4 class="m-2">R$:XX,XX</h4>
-          <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Destinados a
-            pequenas empresas</span><br>
-          <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">X GB de
-            armazenamento</span><br>
-          <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Total
-            controle do estoque</span><br>
-          <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Gráfico e
-            relatorio de vendas automatica</span><br>
-          <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Estabelece
-            conexões com centros de distribuições</span><br>
-          <button type="button" class="btn p-2 mt-3 justify-content-center"
-            style="background-color: #20B2FF;width: 95%;  margin-left: 2%;" onclick="escolherPlano('avancadomensal')">Comprar Agora</button>
-        </div>
+          function escolherPlano(plano) {
+              window.location.href = 'pagamento.html?plano=' + encodeURIComponent(plano);
+          }
+      </script>
+      <div class="planos-container">
+          <div class="plano" id="teste">
+              <h3>Básico<span style="font-size: 45%;">/mensal</span></h3>
+              <h4 class="m-2">R$:XX,XX</h4>
+              <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Destinados a pequenas empresas</span><br>
+              <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">X GB de armazenamento</span><br>
+              <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Total controle do estoque</span><br>
+              <span style="font-size: smaller;"><img src="../assets/img/x.png" alt="" style="width: 30px;">Gráfico e relatorio de vendas automatica</span><br>
+              <span style="font-size: smaller;"><img src="../assets/img/x.png" alt="" style="width: 30px;">Não estabelece conexões com centros de distribuições</span><br>
+              <button type="button" onclick="escolherPlano('basicomensal')">Comprar Agora</button>
+          </div>
+          <div class="plano" id="teste">
+              <h3>Médio<span style="font-size: 45%;">/mensal</span></h3>
+              <h4 class="m-2">R$:XX,XX</h4>
+              <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Destinados a pequenas empresas</span><br>
+              <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">X GB de armazenamento</span><br>
+              <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Total controle do estoque</span><br>
+              <span style="font-size: smaller;"><img src="../assets/img/x.png" alt="" style="width: 30px;">Gráfico e relatorio de vendas automatica</span><br>
+              <span style="font-size: smaller;"><img src="../assets/img/x.png" alt="" style="width: 30px;">Não estabelece conexões com centros de distribuições</span><br>
+              <button type="button" onclick="escolherPlano('mediomensal')" >Comprar Agora</button>
+          </div>
+          <div class="plano" id="teste">
+              <h3>Avançado<span style="font-size: 45%;">/mensal</span></h3>
+              <h4 class="m-2">R$:XX,XX</h4>
+              <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Destinados a pequenas empresas</span><br>
+              <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">X GB de armazenamento</span><br>
+              <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Total controle do estoque</span><br>
+              <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Gráfico e relatorio de vendas automatica</span><br>
+              <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Estabelece conexões com centros de distribuições</span><br>
+              <button type="button" onclick="escolherPlano('avancadomensal')" >Comprar Agora</button>
+          </div>
       </div>
       <!-- Fim sessão planos mensais -->
       <!-- Inicio sessão planos anuais -->
       <h1>Planos Anuais</h1>
-      <div class="row d-flex justify-content-center mt-2">
-        <div class="col-lg-4 col-12 col-md-5 m-2 p-3 configdiv rounded-3 border  border-2 border-primary"
-          style="background-color: white;" id="teste">
-          <h3 class="text-primary">Básico<span style="font-size: 45%;">/anual</span></h3>
-          <h4 class="m-2">R$:XX,XX</h4>
-          <span style="font-size: small; color: #4d20ff;" class="m-2"><strong>*Desconto de R$xx,xx por
-              ano</strong></span><br>
-          <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Destinados a
-            pequenas empresas</span><br>
-          <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">X GB de
-            armazenamento</span><br>
-          <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Total
-            controle do estoque</span><br>
-          <span style="font-size: smaller;"><img src="../assets/img/x.png" alt="" style="width: 30px;">Gráfico e
-            relatorio de vendas automatica</span><br>
-          <span style="font-size: smaller;"><img src="../assets/img/x.png" alt="" style="width: 30px;">Não estabelece
-            conexões com centros de distribuições</span><br>
-          <button type="button" class="btn p-2 mt-3 justify-content-center"
-            style="background-color: #20B2FF;width: 95%;  margin-left: 2%;" onclick="escolherPlano('basicoanual')">Comprar Agora</button>
-        </div>
-        <div class="col-lg-4 col-12 col-md-5 m-2 p-3 rounded-3 border border-2 border-primary"
-          style="background-color: white;" id="teste">
-          <h3 class="text-primary">Medio<span style="font-size: 45%;">/anual</span></h3>
-          <h4 class="m-2">R$:XX,XX</h4>
-          <span style="font-size: small; color: #4d20ff;" class="m-2"><strong>*Desconto de R$xx,xx por
-              ano</strong></span><br>
-          <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Destinados a
-            pequenas empresas</span><br>
-          <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">X GB de
-            armazenamento</span><br>
-          <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Total
-            controle do estoque</span><br>
-          <span style="font-size: smaller;"><img src="../assets/img/x.png" alt="" style="width: 30px;">Gráfico e
-            relatorio de vendas automatica</span><br>
-          <span style="font-size: smaller;"><img src="../assets/img/x.png" alt="" style="width: 30px;">Não estabelece
-            conexões com centros de distribuições</span><br>
-          <button type="button" class="btn p-2 mt-3 "
-            style="background-color: #20B2FF;width: 95%;  margin-left: 2%;" onclick="escolherPlano('medioanual')">Comprar Agora</button>
-        </div>
-        <div class="col-lg-8 col-12 col-md-10 m-2 p-3 rounded-3 border border-2 border-primary"
-          style="background-color: white;" id="teste">
-          <h3 class="text-primary">Avançado<span style="font-size: 45%;">/anual</span></h3>
-          <h4 class="m-2">R$:XX,XX</h4>
-          <span style="font-size: small; color: #4d20ff;" class="m-2"><strong>*Desconto de R$xx,xx por
-              ano</strong></span><br>
-          <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Destinados a
-            pequenas empresas</span><br>
-          <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">X GB de
-            armazenamento</span><br>
-          <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Total
-            controle do estoque</span><br>
-          <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Gráfico e
-            relatorio de vendas automatica</span><br>
-          <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Estabelece
-            conexões com centros de distribuições</span><br>
-          <button type="button" class="btn p-2 mt-3 justify-content-center" style="background-color: #20B2FF;width: 95%;  margin-left: 2%;" onclick="escolherPlano('avancadoanual')" >Comprar Agora</button>
-        </div>
+      <div class="planos-container">
+          <div class="plano" id="teste">
+              <h3>Básico<span style="font-size: 45%;">/anual</span></h3>
+              <h4 class="m-2">R$:XX,XX</h4>
+              <span style="font-size: small; color: #4d20ff;" class="m-2"><strong>*Desconto de R$xx,xx por ano</strong></span><br>
+              <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Destinados a pequenas empresas</span><br>
+              <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">X GB de armazenamento</span><br>
+              <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Total controle do estoque</span><br>
+              <span style="font-size: smaller;"><img src="../assets/img/x.png" alt="" style="width: 30px;">Gráfico e relatorio de vendas automatica</span><br>
+              <span style="font-size: smaller;"><img src="../assets/img/x.png" alt="" style="width: 30px;">Não estabelece conexões com centros de distribuições</span><br>
+              <button type="button" onclick="escolherPlano('basicoanual')" >Comprar Agora</button>
+          </div>
+          <div class="plano" id="teste">
+              <h3>Médio<span style="font-size: 45%;">/anual</span></h3>
+              <h4 class="m-2">R$:XX,XX</h4>
+              <span style="font-size: small; color: #4d20ff;" class="m-2"><strong>*Desconto de R$xx,xx por ano</strong></span><br>
+              <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Destinados a pequenas empresas</span><br>
+              <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">X GB de armazenamento</span><br>
+              <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Total controle do estoque</span><br>
+              <span style="font-size: smaller;"><img src="../assets/img/x.png" alt="" style="width: 30px;">Gráfico e relatorio de vendas automatica</span><br>
+              <span style="font-size: smaller;"><img src="../assets/img/x.png" alt="" style="width: 30px;">Não estabelece conexões com centros de distribuições</span><br>
+              <button type="button" onclick="escolherPlano('medioanual')"  class="btn btn-primary p-2">Comprar Agora</button>
+          </div>
+          <div class="plano" id="teste">
+              <h3>Avançado<span style="font-size: 45%;">/anual</span></h3>
+              <h4 class="m-2">R$:XX,XX</h4>
+              <span style="font-size: small; color: #4d20ff;" class="m-2"><strong>*Desconto de R$xx,xx por ano</strong></span><br>
+              <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Destinados a pequenas empresas</span><br>
+              <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">X GB de armazenamento</span><br>
+              <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Total controle do estoque</span><br>
+              <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Gráfico e relatorio de vendas automatica</span><br>
+              <span style="font-size: smaller;"><img src="../assets/img/check2.png" alt="" style="width: 30px;">Estabelece conexões com centros de distribuições</span><br>
+              <button type="button" onclick="escolherPlano('avancadoanual')" >Comprar Agora</button>
+          </div>
       </div>
       <!-- Fim sessão planos anuais -->
-    </div>
+  </div>
     <!-- Fim sessão Planos -->
     <!-- inicio Sessão Contatos/Duvidas -->
     <div class="container w-75">
