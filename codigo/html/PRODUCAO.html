@@ -121,8 +121,11 @@
         <button type="button" id="btn_novo" class="btn btn-outline-primary col-lg-2 col-5 col-md-3 mb-2 ms-2"><img
             src="../assets/img/rascunho.png" alt="" style="width:30px;"><strong>Nova matéria-prima</strong></button>
 
+        <button type="button" id="btn_editmp" class="btn btn-outline-primary col-lg-2 col-5 col-md-3 mb-2 ms-2"><img
+            src="../assets/img/edit.png" alt="" style="width:30px;"><strong>Editar matéria-prima</strong></button>
+
         <button type="button" id="btn_ex" class="btn btn-outline-primary col-lg-2 col-5 col-md-2 mb-2 ms-2"><img
-            src="../assets/img/x.png" alt="" style="width:30px;"><strong>Excluir</strong></button>
+            src="../assets/img/x.png" alt="" style="width:30px;"><strong>Excluir matéria-prima</strong></button>
       </div>
 
 
@@ -155,6 +158,21 @@
             <div class="m-2 lineinput">
               <label>Validade</label>
               <input type="text" id="validprod1" placeholder="Validade para este lote">
+            </div>
+
+            <div class="m-2 lineinput">
+              <label>Valor unitário</label>
+              <input type="text" id="valor1" placeholder="Preço do produto">
+            </div>
+
+            <div class="m-2 lineinput">
+              <label>NCM</label>
+              <input type="text" id="ncm1" placeholder="NCM do produto">
+            </div>
+
+            <div class="m-2 lineinput">
+              <label>Unidade</label>
+              <input type="text" id="uni1" placeholder="Unidade do produto (ex.: unidade, caixa, pacote...)">
             </div>
 
             <input class="p-2 mb-2 mt-2 ms-2 bg-primary routend text-white" type="submit" value="Salvar">
@@ -238,15 +256,11 @@
 
             <div class="m-2 lineinput">
               <label>Código</label>
-              <input type="text" id="cod_ex" placeholder="Código do produto">
+              <input type="text" id="cod_ex" placeholder="Código da matéria-prima">
             </div>
 
-            <div class="m-2 lineinput">
-              <label>Lote</label>
-              <input type="text" id="lote_ex" placeholder="Lote a ser excluído">
-            </div>
 
-            <button class="p-2 mb-2 mt-2 ms-2 bg-primary routend text-white" type="submit" id="btn_excluir">Excluir</button>
+            <input class="p-2 mb-2 mt-2 ms-2 bg-primary routend text-white" type="submit" value="Excluir">
             <input class="p-2 mb-2 mt-2 bg-primary routend text-white" type="reset" value="Cancelar">
 
           </form>
@@ -299,6 +313,9 @@
                   <th class="bg-primary border-white text-white" scope="col">Lote</th>
                   <th class="bg-primary border-white text-white" scope="col">Qtd. Lote</th>
                   <th class="bg-primary border-white text-white" scope="col">Validade Lote</th>
+                  <th class="bg-primary border-white text-white" scope="col">Valor unitário</th>
+                  <th class="bg-primary border-white text-white" scope="col">NCM</th>
+                  <th class="bg-primary border-white text-white" scope="col">Unidade</th>
                 </tr>
               </thead>
 
@@ -422,6 +439,9 @@
           <td>${item.loteprod1}</td>
           <td>${item.qtdprod1}</td>
           <td>${item.validprod1}</td>
+          <td>${item.valor1}</td>
+          <td>${item.ncm1}</td>
+          <td>${item.uni1}</td>
         `;
           }
         });
@@ -437,11 +457,14 @@
         tableprd.forEach((item) => {
           const newRow = tabelaCorpo.insertRow();
           newRow.innerHTML = `
-            <td>${item.cod1}</td>
-            <td>${item.descprod1}</td>
-            <td>${item.loteprod1}</td>
-            <td>${item.qtdprod1}</td>
-            <td>${item.validprod1}</td>
+          <td>${item.cod1}</td>
+          <td>${item.descprod1}</td>
+          <td>${item.loteprod1}</td>
+          <td>${item.qtdprod1}</td>
+          <td>${item.validprod1}</td>
+          <td>${item.valor1}</td>
+          <td>${item.ncm1}</td>
+          <td>${item.uni1}</td>
         `;
         });
       }
@@ -490,6 +513,15 @@
         let tableprdmp = JSON.parse(localStorage.getItem("prod2")) || [];
         tableprdmp.sort((a, b) => a.cod2.localeCompare(b.cod2));
         tabelacompletamp(tableprdmp);
+
+        var storedprod1 = localStorage.getItem("prod1");
+        if (storedprod1) {
+          var prod_vendas = JSON.parse(storedprod1);
+          linhacod1 = prod_vendas.cod1 || [];
+          linhavalid1 = prod_vendas.validprod1 || [];
+          linhaqtd1 = prod_vendas.qtdprod1 || [];
+          linhavalor1 = prod_vendas.valor1 || [];
+        }
       }
 
       const btnFiltrar = document.getElementById("filtro01");
@@ -622,7 +654,7 @@
       }
 
 
-      
+
 
       const btnFiltrarmp = document.getElementById("filtro03");
       btnFiltrarmp.addEventListener("click", function (event) {
