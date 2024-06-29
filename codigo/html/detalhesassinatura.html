@@ -88,8 +88,10 @@
                     <span><strong>Nome do Comprador:</strong></span>
                     <span id="nomecomp"></span>
                     <br><br>
-                    <span><strong>Valor do pagamento:</strong></span>
-                    <span id="valorpag"></span>
+                    <span><strong>Valor das Parcelas:</strong></span>
+                    <span id="valorpag"></span><br><br>
+                    <span><Strong>Valor total:</Strong></span>
+                    <span id="valortotal"></span>
                     <br><br>
                     <span>*Esses dados são apenas para parâmetro, para a sua segurança, os dados do pagamento do plano
                         não serão mostrados aqui, para mostrar os cartões, adicione o cartão na seção abaixo</span>
@@ -436,7 +438,8 @@
                 document.getElementById('nomecard').innerHTML = pagamentoinfo.plano.nocart;
                 document.getElementById('numcard').innerHTML = cartaooculto(pagamentoinfo.plano.numcard);
                 document.getElementById('nomecomp').innerHTML = pagamentoinfo.plano.nomecomple;
-                document.getElementById('valorpag').innerHTML = planocomprado.plano.valorpag;
+                document.getElementById('valorpag').innerHTML = pagamentoinfo.plano.parcelame;
+                document.getElementById('valortotal').innerHTML = pagamentoinfo.plano.valortotal;
             });
 
             function cartaooculto(numCartao) {
