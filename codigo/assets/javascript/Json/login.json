@@ -6,16 +6,37 @@
       "email": "gabriel@gmail.com",
       "senha": "1",
       "plano": {
+        "planoescolhido": "mediomensal",
+        "dataproxpag": "29/07/2024",
+        "datapag": "29/06/2024",
+        "Tipoplano": "Mensal",
+        "formadepagamento": "Crédito",
+        "nocart": "Gabriel M Magri",
+        "valid": "33/33",
+        "cvv": "333",
+        "nomecomple": "Gabriel Henrique Machado Magri",
+        "numcard": "3333 3333 3333 3333",
+        "titulo": "Médio Mensal"
+      }
+    },
+    {
+      "id": "b0f9",
+      "nome": "a",
+      "email": "a@a",
+      "senha": "a",
+      "plano": {
         "planoescolhido": "basicomensal",
         "dataproxpag": "29/07/2024",
         "datapag": "29/06/2024",
         "Tipoplano": "Mensal",
         "formadepagamento": "Crédito",
         "nocart": "Gabriel M Magri",
-        "valid": "45/45",
-        "cvv": "555",
-        "nomecomple": "Gabriel Henrique Machado Magri",
-        "numcard": "5555 5555 5555 5555"
+        "valid": "66/66",
+        "cvv": "999",
+        "nomecomple": "LEILA BATISTA DE FREITAS",
+        "numcard": "9999 9999 9999 9999",
+        "titulo": "Básico Mensal",
+        "parcelame": "Plano não parcelado por ser mensal"
       }
     }
   ]

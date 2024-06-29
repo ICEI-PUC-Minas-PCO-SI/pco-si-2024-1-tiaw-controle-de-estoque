@@ -427,17 +427,16 @@
 
             document.addEventListener('DOMContentLoaded', function () {
                 const pagamentoinfo = JSON.parse(localStorage.getItem('usuarioLogado'));
-                const planocomprado = JSON.parse(localStorage.getItem('usuarioLogado'));
      
-                document.getElementById('nomeplano').innerHTML = planocomprado.titulo;
-                document.getElementById('contrat').innerHTML = pagamentoinfo.tipoplano;
-                document.getElementById('prox').innerHTML = pagamentoinfo.dataproxpagamento;
-                document.getElementById('pag').innerHTML = pagamentoinfo.datapagamento;
-                document.getElementById('tipocart').innerHTML = pagamentoinfo.formadepagamento;
-                document.getElementById('nomecard').innerHTML = pagamentoinfo.nocart;
-                document.getElementById('numcard').innerHTML = cartaooculto(pagamentoinfo.numcard);
-                document.getElementById('nomecomp').innerHTML = pagamentoinfo.nomecomple;
-                document.getElementById('valorpag').innerHTML = planocomprado.valor;
+                document.getElementById('nomeplano').innerHTML = pagamentoinfo.plano.tituloplano;
+                document.getElementById('contrat').innerHTML = pagamentoinfo.plano.Tipoplano;
+                document.getElementById('prox').innerHTML = pagamentoinfo.plano.dataproxpag;
+                document.getElementById('pag').innerHTML = pagamentoinfo.plano.datapag;
+                document.getElementById('tipocart').innerHTML = pagamentoinfo.plano.formadepagamento;
+                document.getElementById('nomecard').innerHTML = pagamentoinfo.plano.nocart;
+                document.getElementById('numcard').innerHTML = cartaooculto(pagamentoinfo.plano.numcard);
+                document.getElementById('nomecomp').innerHTML = pagamentoinfo.plano.nomecomple;
+                document.getElementById('valorpag').innerHTML = planocomprado.plano.valorpag;
             });
 
             function cartaooculto(numCartao) {

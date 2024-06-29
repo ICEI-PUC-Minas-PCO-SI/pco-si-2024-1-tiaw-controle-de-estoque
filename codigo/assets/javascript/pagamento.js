@@ -36,6 +36,7 @@ var planoss2 = {
         "valor": "R$ zz,zz",
     }
 }
+var titulo;
 
 async function armazenarPlano(pagamentoinfo) {
     const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
@@ -63,6 +64,8 @@ async function armazenarPlano(pagamentoinfo) {
                     cvv: pagamentoinfo.cvvv,
                     nomecomple: pagamentoinfo.nomecomple,
                     numcard: pagamentoinfo.numcard,
+                    titulo: pagamentoinfo.tituloplano,
+                    parcelame: pagamentoinfo.parcelame,
                 }
             })
         });
@@ -81,6 +84,8 @@ async function armazenarPlano(pagamentoinfo) {
                 cvv: pagamentoinfo.cvvv,
                 nomecomple: pagamentoinfo.nomecomple,
                 numcard: pagamentoinfo.numcard,
+                tituloplano: pagamentoinfo.tituloplano,
+                parcelame: pagamentoinfo.parcelame,
             };
             localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
         } else {
@@ -103,8 +108,12 @@ function salvarpagamentocred() {
         const nomecomple = document.getElementById('nome-completo').value;
         //const parcelame = document.getElementById('validationCustom04').value;
         const numcard = document.getElementById('numero-cartao').value;
+        
 
         if (nocart.length >= 10 && valid.length == 5 && cvvv.length == 3 && nomecomple.length >= 10 && numcard.length == 19) {
+            if(planoEscolhido=="basicomensal") titulo="Básico Mensal";
+            else if(planoEscolhido=="mediomensal")  titulo= "Médio Mensal"
+            else if(planoEscolhido=="avancadomensal")  titulo= "Avançado Mensal"
 
             const dataproxpag = soma30dias()
             const hojee = hoje()
@@ -113,13 +122,14 @@ function salvarpagamentocred() {
                 "valid": valid,
                 "cvvv": cvvv,
                 "nomecomple": nomecomple,
-                // "parcelame": parcelame,
+                "parcelame": "Plano não parcelado por ser mensal",
                 "numcard": numcard,
                 "formadepagamento": "Crédito",
                 "tipoplano": "Mensal",
                 "datapagamento": hojee,
                 "dataproxpagamento": dataproxpag,
                 "planoEscolhido": planoEscolhido,
+                "tituloplano": titulo
 
             }
 
@@ -151,6 +161,9 @@ function salvarpagamentocred() {
             cvv: pagamentoinfo.cvvv,
             nomecomple: pagamentoinfo.nomecomple,
             numcard: pagamentoinfo.numcard,
+            tituloplano: pagamentoinfo.tituloplano,
+            parcelame: pagamentoinfo.parcelame,
+
         };
         localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
 
@@ -160,6 +173,9 @@ function salvarpagamentocred() {
 
 
     } else {
+        if(planoEscolhido=="basicoanual") titulo="Básico anual";
+            else if(planoEscolhido=="medioanual")  titulo= "Médio anual"
+            else if(planoEscolhido=="avancadoanual")  titulo= "Avançado anual"
         const nocart = document.getElementById('nome-cartao').value;
         const valid = document.getElementById('validade').value;
         const cvvv = document.getElementById('cvvvv').value;
@@ -180,7 +196,8 @@ function salvarpagamentocred() {
                 "formadepagamento": "Crédito",
                 "tipoplano": "Anual",
                 "datapagamento": hojee,
-                "dataproxpagamento": dataproxpag
+                "dataproxpagamento": dataproxpag,
+                "tituloplano": titulo
             }
 
             localStorage.setItem('pagamentoinfo', JSON.stringify(pagamentoinfo));
@@ -200,8 +217,22 @@ function salvarpagamentocred() {
         armazenarPlano(pagamentoinfo);
         const usuarioLogadoId = localStorage.getItem('usuarioLogado');
         const usuarioLogado = JSON.parse(usuarioLogadoId);
-        usuarioLogado.plano = planoEscolhido;
+        usuarioLogado.plano = {
+            planoescolhido: pagamentoinfo.planoEscolhido,
+            dataproxpag: pagamentoinfo.dataproxpagamento,
+            datapag: pagamentoinfo.datapagamento,
+            Tipoplano: pagamentoinfo.tipoplano,
+            formadepagamento: pagamentoinfo.formadepagamento,
+            nocart: pagamentoinfo.nocart,
+            valid: pagamentoinfo.valid,
+            cvv: pagamentoinfo.cvvv,
+            nomecomple: pagamentoinfo.nomecomple,
+            numcard: pagamentoinfo.numcard,
+            tituloplano: pagamentoinfo.tituloplano,
+            "parcelame": pagamentoinfo.parcelame,
+        };
         localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
+
         window.location.href = "telaempres.html";
 
     }
@@ -210,6 +241,9 @@ function salvarpagamentocred() {
 function salvarpagamentodeb() {
 
     if (planoEscolhido == 'avancadomensal' || planoEscolhido == 'mediomensal' || planoEscolhido == 'basicomensal') {
+        if(planoEscolhido=="basicomensal") titulo="Básico Mensal";
+            else if(planoEscolhido=="mediomensal")  titulo= "Médio Mensal"
+            else if(planoEscolhido=="avancadomensal")  titulo= "Avançado Mensal"
         const nocart = document.getElementById('nome-cartao1').value;
         const valid = document.getElementById('validade1').value;
         const cvvv = document.getElementById('cvvvv1').value;
@@ -225,12 +259,13 @@ function salvarpagamentodeb() {
                 "valid": valid,
                 "cvvv": cvvv,
                 "nomecomple": nomecomple,
-                // "parcelame": parcelame,
+                "parcelame": "Plano não parcelado por ser mensal",
                 "numcard": numcard,
                 "formadepagamento": "Débito",
                 "tipoplano": "Mensal",
                 "datapagamento": hojee,
-                "dataproxpagamento": dataproxpag
+                "dataproxpagamento": dataproxpag,
+                "tituloplano": titulo
             }
 
             localStorage.setItem('pagamentoinfo', JSON.stringify(pagamentoinfo));
@@ -250,11 +285,28 @@ function salvarpagamentodeb() {
         armazenarPlano(pagamentoinfo);
         const usuarioLogadoId = localStorage.getItem('usuarioLogado');
         const usuarioLogado = JSON.parse(usuarioLogadoId);
-        usuarioLogado.plano = planoEscolhido;
+        usuarioLogado.plano = {
+            planoescolhido: pagamentoinfo.planoEscolhido,
+            dataproxpag: pagamentoinfo.dataproxpagamento,
+            datapag: pagamentoinfo.datapagamento,
+            Tipoplano: pagamentoinfo.tipoplano,
+            formadepagamento: pagamentoinfo.formadepagamento,
+            nocart: pagamentoinfo.nocart,
+            valid: pagamentoinfo.valid,
+            cvv: pagamentoinfo.cvvv,
+            nomecomple: pagamentoinfo.nomecomple,
+            numcard: pagamentoinfo.numcard,
+            tituloplano: pagamentoinfo.tituloplano,
+            parcelame: pagamentoinfo.parcelame,
+        };
         localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
+
         window.location.href = "telaempres.html";
 
     } else {
+            if(planoEscolhido=="basicoanual") titulo="Básico anual"
+            else if(planoEscolhido=="medioanual")  titulo= "Médio anual"
+            else if(planoEscolhido=="avancadoanual")  titulo= "Avançado anual"
         const nocart = document.getElementById('nome-cartao1').value;
         const valid = document.getElementById('validade1').value;
         const cvvv = document.getElementById('cvvvv1').value;
@@ -269,12 +321,13 @@ function salvarpagamentodeb() {
                 "valid": valid,
                 "cvvv": cvvv,
                 "nomecomple": nomecomple,
-                //"parcelame": parcelame,
+                "parcelame": parcelame,
                 "numcard": numcard,
                 "formadepagamento": "Débito",
                 "tipoplano": "Anual",
                 "datapagamento": hojee,
-                "dataproxpagamento": dataproxpag
+                "dataproxpagamento": dataproxpag,
+                "tituloplano": titulo
             }
 
             localStorage.setItem('pagamentoinfo', JSON.stringify(pagamentoinfo));
@@ -294,8 +347,22 @@ function salvarpagamentodeb() {
         armazenarPlano(pagamentoinfo);
         const usuarioLogadoId = localStorage.getItem('usuarioLogado');
         const usuarioLogado = JSON.parse(usuarioLogadoId);
-        usuarioLogado.plano = planoEscolhido;
+        usuarioLogado.plano = {
+            planoescolhido: pagamentoinfo.planoEscolhido,
+            dataproxpag: pagamentoinfo.dataproxpagamento,
+            datapag: pagamentoinfo.datapagamento,
+            Tipoplano: pagamentoinfo.tipoplano,
+            formadepagamento: pagamentoinfo.formadepagamento,
+            nocart: pagamentoinfo.nocart,
+            valid: pagamentoinfo.valid,
+            cvv: pagamentoinfo.cvvv,
+            nomecomple: pagamentoinfo.nomecomple,
+            numcard: pagamentoinfo.numcard,
+            tituloplano: pagamentoinfo.tituloplano,
+            parcelame: pagamentoinfo.parcelame,
+        };
         localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
+
         window.location.href = "telaempres.html";
 
 
