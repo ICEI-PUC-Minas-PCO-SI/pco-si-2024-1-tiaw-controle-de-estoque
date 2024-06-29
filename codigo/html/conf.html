@@ -83,12 +83,13 @@
   </footer>
   <script src="conf.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const pagamentoinfo = JSON.parse(localStorage.getItem('pagamentoinfo'));
 
-      document.getElementById('formadepagamento').innerHTML = pagamentoinfo.formadepagamento;
-      document.getElementById('titulo').innerHTML = pagamentoinfo.tipoplano;
-      document.getElementById('prox-pag').innerHTML = pagamentoinfo.dataproxpagamento;
+    document.addEventListener('DOMContentLoaded', function () {
+      const pagamentoinfo = JSON.parse(localStorage.getItem('usuarioLogado'));
+
+      document.getElementById('formadepagamento').innerHTML = pagamentoinfo.plano.formadepagamento;
+      document.getElementById('titulo').innerHTML = pagamentoinfo.plano.Tipoplano;
+      document.getElementById('prox-pag').innerHTML = pagamentoinfo.plano.dataproxpag;
 
 
 

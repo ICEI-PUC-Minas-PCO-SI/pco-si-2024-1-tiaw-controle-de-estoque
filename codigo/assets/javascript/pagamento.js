@@ -37,37 +37,60 @@ var planoss2 = {
     }
 }
 
-async function armazenarPlano(planoEscolhido) {
+async function armazenarPlano(pagamentoinfo) {
     const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
     const usuarioId = usuarioLogado.id;
-  
-    try {
-      const response = await fetch(`http://localhost:3000/users/${usuarioId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({   
-          id: usuarioLogado.id, 
-          nome: usuarioLogado.nome, // Adiciona o nome
-          email: usuarioLogado.email, // Adiciona o email
-          senha: usuarioLogado.senha,  // Adiciona a senha
-          plano: planoEscolhido
-        })
-      });
-  
-      if (response.ok) {
-        console.log('Dados do usuário atualizados com sucesso!');
-      } else {
-        const errorData = await response.json();
-        console.error('Erro ao atualizar os dados do usuário:', response.status, errorData.error);
-      }
-    } catch (error) {
-      console.error('Erro ao atualizar os dados do usuário:', error.message);
-    }
-  }
-  
 
+    try {
+        const response = await fetch(`http://localhost:3000/users/${usuarioId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: usuarioLogado.id,
+                nome: usuarioLogado.nome,
+                email: usuarioLogado.email,
+                senha: usuarioLogado.senha,
+                plano: {
+                    planoescolhido: pagamentoinfo.planoEscolhido,
+                    dataproxpag: pagamentoinfo.dataproxpagamento,
+                    datapag: pagamentoinfo.datapagamento,
+                    Tipoplano: pagamentoinfo.tipoplano,
+                    formadepagamento: pagamentoinfo.formadepagamento,
+                    nocart: pagamentoinfo.nocart,
+                    valid: pagamentoinfo.valid,
+                    cvv: pagamentoinfo.cvvv,
+                    nomecomple: pagamentoinfo.nomecomple,
+                    numcard: pagamentoinfo.numcard,
+                }
+            })
+        });
+
+        if (response.ok) {
+            console.log('Dados do usuário atualizados com sucesso!');
+            // Atualizar o LocalStorage com as novas informações do plano
+            usuarioLogado.plano = {
+                planoescolhido: pagamentoinfo.planoEscolhido,
+                dataproxpag: pagamentoinfo.dataproxpagamento,
+                datapag: pagamentoinfo.datapagamento,
+                Tipoplano: pagamentoinfo.tipoplano,
+                formadepagamento: pagamentoinfo.formadepagamento,
+                nocart: pagamentoinfo.nocart,
+                valid: pagamentoinfo.valid,
+                cvv: pagamentoinfo.cvvv,
+                nomecomple: pagamentoinfo.nomecomple,
+                numcard: pagamentoinfo.numcard,
+            };
+            localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
+        } else {
+            const errorData = await response.json();
+            console.error('Erro ao atualizar os dados do usuário:', response.status, errorData.error);
+        }
+    } catch (error) {
+        console.error('Erro ao atualizar os dados do usuário:', error.message);
+    }
+}
 
 
 
@@ -85,7 +108,7 @@ function salvarpagamentocred() {
 
             const dataproxpag = soma30dias()
             const hojee = hoje()
-            const pagamentoinfo = {
+            var pagamentoinfo = {
                 "nocart": nocart,
                 "valid": valid,
                 "cvvv": cvvv,
@@ -95,11 +118,12 @@ function salvarpagamentocred() {
                 "formadepagamento": "Crédito",
                 "tipoplano": "Mensal",
                 "datapagamento": hojee,
-                "dataproxpagamento": dataproxpag
+                "dataproxpagamento": dataproxpag,
+                "planoEscolhido": planoEscolhido,
 
             }
 
-            localStorage.setItem('pagamentoinfo', JSON.stringify(pagamentoinfo));
+            // localStorage.setItem('pagamentoinfo', JSON.stringify(pagamentoinfo));
             if (planoEscolhido == 'mediomensal' || planoEscolhido == 'basicomensal') {
                 localStorage.setItem('confirmacao', 'false');
             }
@@ -113,7 +137,26 @@ function salvarpagamentocred() {
             alert("Não foi possível prosseguir com o pagamento, verifique as informações e tente novamente!")
         }
 
-        armazenarPlano(planoEscolhido);
+        armazenarPlano(pagamentoinfo);
+        const usuarioLogadoId = localStorage.getItem('usuarioLogado');
+        const usuarioLogado = JSON.parse(usuarioLogadoId);
+        usuarioLogado.plano = {
+            planoescolhido: pagamentoinfo.planoEscolhido,
+            dataproxpag: pagamentoinfo.dataproxpagamento,
+            datapag: pagamentoinfo.datapagamento,
+            Tipoplano: pagamentoinfo.tipoplano,
+            formadepagamento: pagamentoinfo.formadepagamento,
+            nocart: pagamentoinfo.nocart,
+            valid: pagamentoinfo.valid,
+            cvv: pagamentoinfo.cvvv,
+            nomecomple: pagamentoinfo.nomecomple,
+            numcard: pagamentoinfo.numcard,
+        };
+        localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
+
+        window.location.href = "telaempres.html";
+
+
 
 
     } else {
@@ -154,7 +197,12 @@ function salvarpagamentocred() {
             alert("Não foi possível prosseguir com o pagamento, verifique as informações e tente novamente!")
         }
         //Armazenar informação do plano: 
-        armazenarPlano(planoEscolhido)
+        armazenarPlano(pagamentoinfo);
+        const usuarioLogadoId = localStorage.getItem('usuarioLogado');
+        const usuarioLogado = JSON.parse(usuarioLogadoId);
+        usuarioLogado.plano = planoEscolhido;
+        localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
+        window.location.href = "telaempres.html";
 
     }
 }
@@ -199,7 +247,12 @@ function salvarpagamentodeb() {
             alert("Não foi possível prosseguir com o pagamento, verifique as informações e tente novamente!")
         }
         //Armazenar informação do plano: 
-        armazenarPlano(planoEscolhido)
+        armazenarPlano(pagamentoinfo);
+        const usuarioLogadoId = localStorage.getItem('usuarioLogado');
+        const usuarioLogado = JSON.parse(usuarioLogadoId);
+        usuarioLogado.plano = planoEscolhido;
+        localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
+        window.location.href = "telaempres.html";
 
     } else {
         const nocart = document.getElementById('nome-cartao1').value;
@@ -238,7 +291,12 @@ function salvarpagamentodeb() {
             alert("Não foi possível prosseguir com o pagamento, verifique as informações e tente novamente!")
         }
         //Armazenar informação do plano: 
-        armazenarPlano(planoEscolhido)
+        armazenarPlano(pagamentoinfo);
+        const usuarioLogadoId = localStorage.getItem('usuarioLogado');
+        const usuarioLogado = JSON.parse(usuarioLogadoId);
+        usuarioLogado.plano = planoEscolhido;
+        localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
+        window.location.href = "telaempres.html";
 
 
     }

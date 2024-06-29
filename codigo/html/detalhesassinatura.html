@@ -426,8 +426,8 @@
             });
 
             document.addEventListener('DOMContentLoaded', function () {
-                const pagamentoinfo = JSON.parse(localStorage.getItem('pagamentoinfo'));
-                const planocomprado = JSON.parse(localStorage.getItem('planocompradoo'));
+                const pagamentoinfo = JSON.parse(localStorage.getItem('usuarioLogado'));
+                const planocomprado = JSON.parse(localStorage.getItem('usuarioLogado'));
      
                 document.getElementById('nomeplano').innerHTML = planocomprado.titulo;
                 document.getElementById('contrat').innerHTML = pagamentoinfo.tipoplano;

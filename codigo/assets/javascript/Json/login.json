@@ -1,11 +1,22 @@
 {
   "users": [
     {
-      "id": "ead6",
-      "nome": "usuario1",
-      "email": "a@gmail.com",
-      "senha": "senha123",
-      "plano": "basicoanual"
+      "id": "5a2e",
+      "nome": "Gabriel",
+      "email": "gabriel@gmail.com",
+      "senha": "1",
+      "plano": {
+        "planoescolhido": "basicomensal",
+        "dataproxpag": "29/07/2024",
+        "datapag": "29/06/2024",
+        "Tipoplano": "Mensal",
+        "formadepagamento": "Crédito",
+        "nocart": "Gabriel M Magri",
+        "valid": "45/45",
+        "cvv": "555",
+        "nomecomple": "Gabriel Henrique Machado Magri",
+        "numcard": "5555 5555 5555 5555"
+      }
     }
   ]
 }

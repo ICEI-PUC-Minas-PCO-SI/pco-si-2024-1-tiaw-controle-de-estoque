@@ -34,74 +34,74 @@
 	</div>
 
 	<script>
-		const cadastroForm = document.getElementById('cadastroForm');
-		const loginForm = document.getElementById('loginForm');
-	
-		cadastroForm.addEventListener('submit', async (event) => {
-			event.preventDefault();
-	
-			const nome = document.getElementById('cadastroNome').value;
-			const email = document.getElementById('cadastroEmail').value;
-			const senha = document.getElementById('cadastroSenha').value;
-			const plano = null; // Ou obtenha o valor do plano se for selecionado no formulário
-	
-			try {
-				const response = await fetch('http://localhost:3000/users', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify({ nome, email, senha, plano })
-				});
-	
-				if (response.ok) {
-					alert('Usuário cadastrado com sucesso!', 'sucesso');
-					cadastroForm.reset(); // Limpar o formulário
-				} else {
-					const data = await response.json();
-					alert(`Erro ao cadastrar: ${data.message || 'Erro desconhecido'}`, 'erro');
-				}
-			} catch (error) {
-				alert('Erro ao cadastrar: Falha na conexão com o servidor', 'erro');
-			}
-		});
-	
-		loginForm.addEventListener('submit', async (event) => {
-			event.preventDefault();
-	
-			const email = document.getElementById('loginEmail').value;
-			const senha = document.getElementById('loginSenha').value;
-	
-			try {
-				const response = await fetch(`http://localhost:3000/users?email=${email}`);
-				const users = await response.json();
-	
-				if (users.length > 0 && users[0].senha === senha) {
-					// Armazenar os dados do usuário como um objeto JSON no LocalStorage
-					const usuarioLogado = {
-						id: users[0].id,
-						nome: users[0].nome,
-						email: users[0].email,
-						senha: users[0].senha,
-						plano: users[0].plano
-					};
-					localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
-	
-					// Verificar se o usuário tem um plano
-					if (users[0].plano === null) {
-						alert('Você precisa escolher um plano antes de continuar.');
-						window.location.href = 'planos.html'; // Redirecionar para planos.html
-					} else {
-						alert('Login bem-sucedido!');
-						window.location.href = 'inicial.html'; // Redirecionar para a página após o login
-					}
-				} else {
-					alert('Email ou senha incorretos', 'erro');
-				}
-			} catch (error) {
-				alert('Erro ao fazer login: Falha na conexão com o servidor', 'erro');
-			}
-		});
+		 const cadastroForm = document.getElementById('cadastroForm');
+    const loginForm = document.getElementById('loginForm');
+
+    cadastroForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const nome = document.getElementById('cadastroNome').value;
+        const email = document.getElementById('cadastroEmail').value;
+        const senha = document.getElementById('cadastroSenha').value;
+        const plano = null; // Ou obtenha o valor do plano se for selecionado no formulário
+
+        try {
+            const response = await fetch('http://localhost:3000/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ nome, email, senha, plano })
+            });
+
+            if (response.ok) {
+                alert('Usuário cadastrado com sucesso!', 'sucesso');
+                cadastroForm.reset(); // Limpar o formulário
+            } else {
+                const data = await response.json();
+                alert(`Erro ao cadastrar: ${data.message || 'Erro desconhecido'}`, 'erro');
+            }
+        } catch (error) {
+            alert('Erro ao cadastrar: Falha na conexão com o servidor', 'erro');
+        }
+    });
+
+    loginForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const email = document.getElementById('loginEmail').value;
+        const senha = document.getElementById('loginSenha').value;
+
+        try {
+            const response = await fetch(`http://localhost:3000/users?email=${email}`);
+            const users = await response.json();
+
+            if (users.length > 0 && users[0].senha === senha) {
+                // Armazenar os dados do usuário como um objeto JSON no LocalStorage
+                const usuarioLogado = {
+                    id: users[0].id,
+                    nome: users[0].nome,
+                    email: users[0].email,
+                    senha: users[0].senha,
+                    plano: users[0].plano
+                };
+                localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
+
+                // Verificar se o usuário tem um plano
+                if (users[0].plano === null) {
+                    alert('Você precisa escolher um plano antes de continuar.');
+                    window.location.href = 'planos.html'; // Redirecionar para planos.html
+                } else {
+                    alert('Login bem-sucedido!');
+                    window.location.href = 'telaempres.html'; // Redirecionar para a página após o login
+                }
+            } else {
+                alert('Email ou senha incorretos', 'erro');
+            }
+        } catch (error) {
+            alert('Erro ao fazer login: Falha na conexão com o servidor', 'erro');
+        }
+    });
 	</script>
 	
 </body>
