@@ -1,39 +1,109 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login e cadastro</title>
-  <link rel="stylesheet" href="../assets/css/style.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login e Cadastro</title>
+	<link rel="stylesheet" href="../assets/css/style.css">
 
 </head>
+
 <body>
-
-	<div class="main">  	
+	<div class="main">
 		<input type="checkbox" id="chk" aria-hidden="true">
-    <!--cadastro-->
-			<div class="cadastrar">
-				<form>
-					<label for="chk" aria-hidden="true">Cadastrar</label>
-					<input type="text" name="txt" placeholder="Nome de Usuario" required="">
-					<input type="email" name="email" placeholder="Email" required="">
-					<input type="password" name="pswd" placeholder="Senha" required="">
-					<button>Cadastre-se</button>
-				</form>
-			</div>
-        <!--login-->
-			<div class="entrar">
-				<form>
-					<label for="chk" aria-hidden="true">Entrar</label>
-					<input type="email" name="email" placeholder="Email" required="">
-					<input type="password" name="pswd" placeholder="Senha" required="">
-					<button>Entrar</button>
-				</form> 
-			</div>
-	</div>
-</body>
-</html>
 
-  
+		<div class="cadastrar">
+			<form id="cadastroForm">
+				<label for="chk" aria-hidden="true">Cadastrar</label>
+				<input type="text" id="cadastroNome" placeholder="Nome de Usuário" required>
+				<input type="email" id="cadastroEmail" placeholder="Email" required>
+				<input type="password" id="cadastroSenha" placeholder="Senha" required>
+				<button type="submit">Cadastre-se</button>
+			</form>
+		</div>
+
+		<div class="entrar">
+			<form id="loginForm">
+				<label for="chk" aria-hidden="true">Entrar</label>
+				<input type="email" id="loginEmail" placeholder="Email" required>
+				<input type="password" id="loginSenha" placeholder="Senha" required>
+				<button type="submit">Entrar</button>
+			</form>
+		</div>
+	</div>
+
+	<script>
+		const cadastroForm = document.getElementById('cadastroForm');
+		const loginForm = document.getElementById('loginForm');
+	
+		cadastroForm.addEventListener('submit', async (event) => {
+			event.preventDefault();
+	
+			const nome = document.getElementById('cadastroNome').value;
+			const email = document.getElementById('cadastroEmail').value;
+			const senha = document.getElementById('cadastroSenha').value;
+			const plano = null; // Ou obtenha o valor do plano se for selecionado no formulário
+	
+			try {
+				const response = await fetch('http://localhost:3000/users', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ nome, email, senha, plano })
+				});
+	
+				if (response.ok) {
+					alert('Usuário cadastrado com sucesso!', 'sucesso');
+					cadastroForm.reset(); // Limpar o formulário
+				} else {
+					const data = await response.json();
+					alert(`Erro ao cadastrar: ${data.message || 'Erro desconhecido'}`, 'erro');
+				}
+			} catch (error) {
+				alert('Erro ao cadastrar: Falha na conexão com o servidor', 'erro');
+			}
+		});
+	
+		loginForm.addEventListener('submit', async (event) => {
+			event.preventDefault();
+	
+			const email = document.getElementById('loginEmail').value;
+			const senha = document.getElementById('loginSenha').value;
+	
+			try {
+				const response = await fetch(`http://localhost:3000/users?email=${email}`);
+				const users = await response.json();
+	
+				if (users.length > 0 && users[0].senha === senha) {
+					// Armazenar os dados do usuário como um objeto JSON no LocalStorage
+					const usuarioLogado = {
+						id: users[0].id,
+						nome: users[0].nome,
+						email: users[0].email,
+						senha: users[0].senha,
+						plano: users[0].plano
+					};
+					localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
+	
+					// Verificar se o usuário tem um plano
+					if (users[0].plano === null) {
+						alert('Você precisa escolher um plano antes de continuar.');
+						window.location.href = 'planos.html'; // Redirecionar para planos.html
+					} else {
+						alert('Login bem-sucedido!');
+						window.location.href = 'inicial.html'; // Redirecionar para a página após o login
+					}
+				} else {
+					alert('Email ou senha incorretos', 'erro');
+				}
+			} catch (error) {
+				alert('Erro ao fazer login: Falha na conexão com o servidor', 'erro');
+			}
+		});
+	</script>
+	
 </body>
+
 </html>
