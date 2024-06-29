@@ -65,7 +65,7 @@ async function armazenarPlano(pagamentoinfo) {
                     cvv: pagamentoinfo.cvvv,
                     nomecomple: pagamentoinfo.nomecomple,
                     numcard: pagamentoinfo.numcard,
-                    titulo: pagamentoinfo.tituloplano,
+                    tituloplano: pagamentoinfo.tituloplano,
                     parcelame: pagamentoinfo.parcelame,
                     valortotal: pagamentoinfo.valortotal,
                 }
@@ -88,7 +88,7 @@ async function armazenarPlano(pagamentoinfo) {
                 numcard: pagamentoinfo.numcard,
                 tituloplano: pagamentoinfo.tituloplano,
                 parcelame: pagamentoinfo.parcelame,
-                valortotal: pagamentoinfo.valortotal
+                valortotal: pagamentoinfo.valortotal,
             };
             localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
         } else {
@@ -181,6 +181,7 @@ function salvarpagamentocred() {
         if (planoEscolhido == "basicoanual") { titulo = "Básico anual"; total = "R$: XX,XX" }
         else if (planoEscolhido == "medioanual") { titulo = "Médio anual"; total = "R$: XX,XX" }
         else if (planoEscolhido == "avancadoanual") { titulo = "Avançado anual"; total = "R$: XX,XX" }
+
         const nocart = document.getElementById('nome-cartao').value;
         const valid = document.getElementById('validade').value;
         const cvvv = document.getElementById('cvvvv').value;
@@ -191,7 +192,7 @@ function salvarpagamentocred() {
         if (nocart.length >= 10 && valid.length == 5 && cvvv.length == 3 && nomecomple.length >= 10 && numcard.length == 19) {
             const dataproxpag = soma365dias()
             const hojee = hoje()
-            const pagamentoinfo = {
+            var pagamentoinfo = {
                 "nocart": nocart,
                 "valid": valid,
                 "cvvv": cvvv,
@@ -204,10 +205,11 @@ function salvarpagamentocred() {
                 "dataproxpagamento": dataproxpag,
                 "tituloplano": titulo,
                 "valortotal": total,
+                "planoEscolhido": planoEscolhido,
 
             }
 
-            localStorage.setItem('pagamentoinfo', JSON.stringify(pagamentoinfo));
+            // localStorage.setItem('pagamentoinfo', JSON.stringify(pagamentoinfo));
             if (planoEscolhido == 'mediomensal' || planoEscolhido == 'basicomensal') {
                 localStorage.setItem('confirmacao', 'false');
             }
@@ -237,7 +239,8 @@ function salvarpagamentocred() {
             numcard: pagamentoinfo.numcard,
             tituloplano: pagamentoinfo.tituloplano,
             parcelame: pagamentoinfo.parcelame,
-            valortotal: pagamentoinfo.total,
+            valortotal: pagamentoinfo.valortotal,
+            
         };
         localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
 
@@ -262,7 +265,7 @@ function salvarpagamentodeb() {
             const dataproxpag = soma30dias()
             const hojee = hoje()
 
-            const pagamentoinfo = {
+            var pagamentoinfo = {
                 "nocart": nocart,
                 "valid": valid,
                 "cvvv": cvvv,
@@ -275,9 +278,10 @@ function salvarpagamentodeb() {
                 "dataproxpagamento": dataproxpag,
                 "tituloplano": titulo,
                 "valortotal": total,
+                "planoEscolhido": planoEscolhido,
             }
 
-            localStorage.setItem('pagamentoinfo', JSON.stringify(pagamentoinfo));
+            // localStorage.setItem('pagamentoinfo', JSON.stringify(pagamentoinfo));
             if (planoEscolhido == 'mediomensal' || planoEscolhido == 'basicomensal') {
                 localStorage.setItem('confirmacao', 'false');
             }
@@ -307,7 +311,7 @@ function salvarpagamentodeb() {
             numcard: pagamentoinfo.numcard,
             tituloplano: pagamentoinfo.tituloplano,
             parcelame: pagamentoinfo.parcelame,
-            valortotal: pagamentoinfo.total,
+            valortotal: pagamentoinfo.valortotal,
 
         };
         localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
@@ -327,12 +331,12 @@ function salvarpagamentodeb() {
         if (nocart.length >= 10 && valid.length == 5 && cvvv.length == 3 && nomecomple.length >= 10 && numcard.length == 19) {
             const dataproxpag = soma365dias()
             const hojee = hoje()
-            const pagamentoinfo = {
+            var pagamentoinfo = {
                 "nocart": nocart,
                 "valid": valid,
                 "cvvv": cvvv,
                 "nomecomple": nomecomple,
-                "parcelame": parcelame,
+                "parcelame": "TESTE",
                 "numcard": numcard,
                 "formadepagamento": "Débito",
                 "tipoplano": "Anual",
@@ -340,9 +344,10 @@ function salvarpagamentodeb() {
                 "dataproxpagamento": dataproxpag,
                 "tituloplano": titulo,
                 "valortotal": total,
+                "planoEscolhido": planoEscolhido,
             }
 
-            localStorage.setItem('pagamentoinfo', JSON.stringify(pagamentoinfo));
+            // localStorage.setItem('pagamentoinfo', JSON.stringify(pagamentoinfo));
             if (planoEscolhido == 'mediomensal' || planoEscolhido == 'basicomensal') {
                 localStorage.setItem('confirmacao', 'false');
             }
@@ -372,7 +377,7 @@ function salvarpagamentodeb() {
             numcard: pagamentoinfo.numcard,
             tituloplano: pagamentoinfo.tituloplano,
             parcelame: pagamentoinfo.parcelame,
-            valortotal: pagamentoinfo.total,
+            valortotal: pagamentoinfo.valortotal,
 
         };
         localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));

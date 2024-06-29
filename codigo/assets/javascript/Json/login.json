@@ -34,18 +34,18 @@
       "email": "gf@t",
       "senha": "1",
       "plano": {
-        "planoescolhido": "basicomensal",
-        "dataproxpag": "29/07/2024",
+        "planoescolhido": "avancadoanual",
+        "dataproxpag": "29/06/2025",
         "datapag": "29/06/2024",
-        "Tipoplano": "Mensal",
+        "Tipoplano": "Anual",
         "formadepagamento": "Crédito",
         "nocart": "Gabriel M Magri",
         "valid": "22/22",
         "cvv": "222",
         "nomecomple": "Gabriel Henrique Machado Magri",
         "numcard": "2222 2222 2222 2222",
-        "titulo": "Básico Mensal",
-        "parcelame": "Plano não parcelado por ser mensal",
+        "tituloplano": "Avançado anual",
+        "parcelame": "1 vez de R$: XX,XX/Mês",
         "valortotal": "R$: XX,XX"
       }
     }
