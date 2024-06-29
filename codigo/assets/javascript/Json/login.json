@@ -1,0 +1,11 @@
+{
+  "users": [
+    {
+      "id": "ead6",
+      "nome": "usuario1",
+      "email": "a@gmail.com",
+      "senha": "senha123",
+      "plano": "basicoanual"
+    }
+  ]
+}
