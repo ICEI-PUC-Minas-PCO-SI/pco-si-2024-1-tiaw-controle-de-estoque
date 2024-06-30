@@ -5,19 +5,15 @@
       "src": "server.js",
       "use": "@vercel/node",
       "config": {
-        "includeFiles": ["codigo/assets/javascript/Json/login.json"]
+        "includeFiles": ["codigo/assets/javascript/Json/login.json", "codigo/html/**/*"]
       }
-    },
-    {
-      "src": "codigo/html/**/*",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "codigo/assets/**/*",
-      "use": "@vercel/static"
     }
   ],
   "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/server.js"
+    },
     {
       "src": "/assets/(.*)",
       "dest": "/codigo/assets/$1"
