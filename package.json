@@ -7,7 +7,12 @@
     "start": "node server.js",
     "test": "echo \"No tests specified\" && exit 1"
   },
-  "keywords": ["estoque", "gerenciamento", "json-server", "empresas pequenas e médias"],
+  "keywords": [
+    "estoque",
+    "gerenciamento",
+    "json-server",
+    "empresas pequenas e médias"
+  ],
   "author": "Seu Nome",
   "license": "ISC",
   "dependencies": {
