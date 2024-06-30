@@ -5,7 +5,7 @@
         "src": "server.js",
         "use": "@vercel/node",
         "config": {
-          "includeFiles": ["login.json"]
+          "includeFiles": ["codigo/assets/javascript/Json/login.json"]
         }
       }
     ],
