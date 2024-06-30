@@ -27,15 +27,7 @@
       "dest": "/codigo/html/$1"
     },
     {
-      "src": "/api/(.*)",
-      "dest": "server.js"
-    },
-    {
-      "src": "/",
-      "dest": "/codigo/html/index.html"
-    },
-    {
-      "src": "/(.*)",
+       "src": "/(.*)",
       "dest": "server.js"
     }
   ]
