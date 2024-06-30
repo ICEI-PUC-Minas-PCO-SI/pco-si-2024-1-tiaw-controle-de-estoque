@@ -5,33 +5,14 @@
         "src": "server.js",
         "use": "@vercel/node",
         "config": {
-          "includeFiles": ["codigo/assets/javascript/Json/login.json"]  
+          "includeFiles": ["codigo/assets/javascript/Json/login.json"]
         }
       }
     ],
     "routes": [
       {
         "src": "/(.*)",
-        "dest": "/server.js"
-      }
-    ],
-    "env": {
-      "PORT": "3000"  
-    },
-    "builds": [
-      {
-        "src": "server.js",
-        "use": "@vercel/node",
-        "config": {
-          "includeFiles": ["db.json"]  
-        }
-      }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "/server.js"
+        "dest": "server.js"
       }
     ]
   }
-  

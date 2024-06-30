@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "json-server --watch codigo/assets/javascript/Json/login.json --port $PORT"
   },
   "keywords": [],
   "author": "",
