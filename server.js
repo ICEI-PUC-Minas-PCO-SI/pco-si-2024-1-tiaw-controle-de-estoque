@@ -10,8 +10,8 @@ const port = process.env.PORT || 3000;
 const jsonServer = spawn('npm', ['run', 'server'], { stdio: 'inherit', shell: true });
 
 // Middleware para servir arquivos estáticos
-app.use(express.static(path.join(__dirname, 'codigo/html')));
 app.use('/assets', express.static(path.join(__dirname, 'codigo/assets')));
+app.use(express.static(path.join(__dirname, 'codigo/html')));
 
 // Middleware para fazer proxy das requisições para o json-server
 app.use('/api', createProxyMiddleware({ target: 'http://localhost:3001', changeOrigin: true }));
