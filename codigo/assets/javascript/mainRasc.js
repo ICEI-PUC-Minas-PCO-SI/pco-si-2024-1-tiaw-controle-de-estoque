@@ -14,7 +14,6 @@ fetch(URL)
             <tr>
                 <th>${rascunhos[i].id}</th>
                 <td>${rascunhos[i].prioridade}</td>
-                <td>${rascunhos[i].tipo}</td>
                 <td>${rascunhos[i].nome}</td>
                 <td>${rascunhos[i].end}</td>
                 <td>${rascunhos[i].ctt}</td>
@@ -61,7 +60,6 @@ function getRascunho(id){
         $( "#rascunho-id" ).prop( "disabled", false );
         $('#rascunho-id').val("");
         $('#rascunho-prioridade').val("");
-        $('#rascunho-tipo').val("");
         $('#rascunho-nome').val("");
         $('#rascunho-end').val("");
         $('#rascunho-ctt').val("");
@@ -72,7 +70,6 @@ function getRascunho(id){
             $( "#rascunho-id" ).prop( "disabled", true );
             $('#rascunho-id').val(data.id);
             $('#rascunho-prioridade').val(data.prioridade);
-            $('#rascunho-tipo').val(data.tipo);
             $('#rascunho-nome').val(data.nome);
             $('#rascunho-end').val(data.end);
             $('#rascunho-ctt').val(data.ctt);
@@ -95,7 +92,6 @@ rascunhoForm.addEventListener('submit', (e) => {
     const rascunho = JSON.stringify({
         id: document.getElementById('rascunho-id').value,
         prioridade: document.getElementById('rascunho-prioridade').value,
-        tipo: document.getElementById('rascunho-tipo').value,
         nome: document.getElementById('rascunho-nome').value,
         end: document.getElementById('rascunho-end').value,
         ctt: document.getElementById('rascunho-ctt').value
