@@ -9,8 +9,8 @@ const middlewares = jsonServer.defaults();
 // Use os middlewares padrão do json-server
 server.use(middlewares);
 
-// Configure o roteador do json-server
-server.use('/api', router);  // Adicione um prefixo para os endpoints da API
+// Configure o roteador do json-server com o prefixo '/api'
+server.use('/api', router);
 
 // Serve arquivos estáticos HTML
 server.use(express.static(path.join(__dirname, 'codigo/html')));
