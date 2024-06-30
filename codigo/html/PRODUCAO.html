@@ -514,14 +514,7 @@
         tableprdmp.sort((a, b) => a.cod2.localeCompare(b.cod2));
         tabelacompletamp(tableprdmp);
 
-        var storedprod1 = localStorage.getItem("prod1");
-        if (storedprod1) {
-          var prod_vendas = JSON.parse(storedprod1);
-          linhacod1 = prod_vendas.cod1 || [];
-          linhavalid1 = prod_vendas.validprod1 || [];
-          linhaqtd1 = prod_vendas.qtdprod1 || [];
-          linhavalor1 = prod_vendas.valor1 || [];
-        }
+
       }
 
       const btnFiltrar = document.getElementById("filtro01");

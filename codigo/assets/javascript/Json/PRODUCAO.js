@@ -189,30 +189,34 @@ cadForm.addEventListener("submit", (e) => {
 
 
 
-  if (localStorage.hasOwnProperty("prod_vendas")) {
-    // Recuperar os valores da propriedade usuarios do localStorage
-    // Converte de String para Object
-    prod_vendas = JSON.parse(localStorage.getItem("prod_vendas"));
-  }
-
-  // Adiciona um novo objeto no array criado
-  prod_vendas.push({ cod1, descprod1, loteprod1, qtdprod1, validprod1, valor1, ncm1, uni1 });
-
-  // Salva no localStorage
-  localStorage.setItem("prod1", JSON.stringify(prod1));
-
-  document.getElementById("cod1").value = "";
-  document.getElementById("descprod1").value = "";
-  document.getElementById("loteprod1").value = "";
-  document.getElementById("qtdprod1").value = "";
-  document.getElementById("validprod1").value = "";
-  document.getElementById("valor1").value = "";
-  document.getElementById("ncm1").value = "";
-  document.getElementById("uni1").value = "";
 
 
 
-  addDataprod(cod1, validprod1, qtdprod1, valor1);
+  descprod_v = document.getElementById('descprod1').value;
+  qtdprod_v = document.getElementById('qtdprod1').value;
+  validprod_v = document.getElementById('validprod1').value;
+  valor_v = document.getElementById('valor1').value;
+
+  // Verificar se já há dados no localStorage
+  var prod_v_json = localStorage.getItem('prod_v');
+
+  // Se houver dados, converter para objeto JSON
+  var prod_v = prod_v_json ? JSON.parse(prod_v_json) : {};
+
+  // Atualizar o objeto prod_v com os novos valores
+  prod_v.desc_v = prod_v.desc_v ? [...prod_v.desc_v, descprod1] : [descprod1];
+  prod_v.qtd_v = prod_v.qtd_v ? [...prod_v.qtd_v, qtdprod1] : [qtdprod1];
+  prod_v.valid_v = prod_v.valid_v ? [...prod_v.valid_v, validprod1] : [validprod1];
+  prod_v.valor_v = prod_v.valor_v ? [...prod_v.valor_v, valor1] : [valor1];
+
+  // Converter o objeto para string JSON
+  var prod_v_string = JSON.stringify(prod_v);
+
+  // Salvar no localStorage com o nome "prod_v"
+  localStorage.setItem('prod_v', prod_v_string);
+
+
+
   
   location.reload();
 
@@ -279,30 +283,14 @@ cadFormmp.addEventListener("reset", (e) => {
 
 
 
-var linhacod1 = [];
-var linhavalid1 = [];
-var linhaqtd1 = [];
-var linhavalor1 = [];
-var idprod = 0;
-editIndex = -1;
 
-function addDataprod(cod1, validprod1, qtdprod1, valor1) {
-  linhacod1.push(cod1);
-  linhavalid1.push(validprod1);
-  linhaqtd1.push(qtdprod1);
-  linhavalor1.push(valor1);
 
-  saveprod_vendas();
+/*
+
+// Função para salvar os dados no localStorage
+function salvaprod_v() {
+  // Pegar os valores dos campos do formulário
+  
+
 }
-
-
-function saveprod_vendas() {
-  var prod_vendas = {
-      cod1: linhacod1,
-      validprod1: linhavalid1,
-      qtdprod1: linhaqtd1,
-      valor1: linhavalor1
-  };
-
-  localStorage.setItem("prod_vendas", JSON.stringify(prod_vendas));
-}
+*/
