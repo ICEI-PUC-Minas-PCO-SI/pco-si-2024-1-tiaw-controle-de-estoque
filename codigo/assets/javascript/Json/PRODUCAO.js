@@ -189,6 +189,12 @@ cadForm.addEventListener("submit", (e) => {
 
 
 
+  /*var descprod_v = [];
+  var qtdprod_v = [];
+  var validprod_v = [];
+  var valor_v = [];
+  var idprod_v = 0;
+  editIndex_v = -1;*/
 
 
 
