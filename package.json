@@ -1,16 +1,19 @@
 {
-  "name": "Datastock",
+  "name": "datastock",
   "version": "1.0.0",
-  "description": "Datastock",
-  "main": "index.js",
+  "description": "DataStock - Sistema de gerenciamento de estoque",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node server.js",
+    "server": "json-server --watch codigo/assets/javascript/Json/login.json --port 3001",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "Iago, Gabriella, Gabriel Medice, Gabriel Henrique, Pedro, Luiz",
+  "author": "",
   "license": "ISC",
   "dependencies": {
+    "json-server": "^0.17.0",
     "express": "^4.17.1",
-    "json-server": "^0.17.4"
+    "http-proxy-middleware": "^1.0.6"
   }
 }

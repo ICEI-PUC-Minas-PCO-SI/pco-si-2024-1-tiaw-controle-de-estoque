@@ -1,18 +1,42 @@
 {
-  "version":2,
-  "builds":[
-      {
-          "src": "./codigo/index.js",
-          "use":"@vercel/node",
-          "config":{
-              "includeFiles":["./codigo/assets/javascript/login.json"]
-          }
+  "version": 2,
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": ["codigo/assets/javascript/Json/login.json"]
       }
+    },
+    {
+      "src": "codigo/html/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "codigo/assets/**/*",
+      "use": "@vercel/static"
+    }
   ],
-  "routes":[
-      {
-          "src":"/(.*)",
-          "dest":"index.js"
-      }
+  "routes": [
+    {
+      "src": "/assets/(.*)",
+      "dest": "/codigo/assets/$1"
+    },
+    {
+      "src": "/(.*\\.html)",
+      "dest": "/codigo/html/$1"
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "server.js"
+    },
+    {
+      "src": "/",
+      "dest": "/codigo/html/index.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "server.js"
+    }
   ]
 }
