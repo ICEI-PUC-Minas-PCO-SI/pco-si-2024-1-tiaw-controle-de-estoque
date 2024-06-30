@@ -9,6 +9,7 @@
       "src": "codigo/assets/**/*",
       "use": "@vercel/static"
     }
+    
   ],
   "routes": [
     {
