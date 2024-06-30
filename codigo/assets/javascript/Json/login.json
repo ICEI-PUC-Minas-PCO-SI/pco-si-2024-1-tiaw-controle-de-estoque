@@ -1,3 +1,53 @@
 {
-  "users": []
-}
+  "users": [
+    {
+      "id": "5829",
+      "nome": "iagogmoyses",
+      "email": "iagogmoyses21@gmail.com",
+      "senha": "iago0702",
+      "plano": {
+        "planoescolhido": "avancadomensal",
+        "dataproxpag": "30/07/2024",
+        "datapag": "30/06/2024",
+        "Tipoplano": "Mensal",
+        "formadepagamento": "Crédito",
+        "nocart": "IAGO G MOYSES",
+        "valid": "09/99",
+        "cvv": "090",
+        "nomecomple": "IAGO GONCALVES MOYSES",
+        "numcard": "9798 7896 8686 8689",
+        "tituloplano": "Avançado Mensal",
+        "parcelame": "Plano não parcelado por ser mensal",
+        "valortotal": "R$: XX,XX"
+      }
+    }
+  ],
+  "clientes": [
+    {
+      "id": "1",
+      "prioridade": "1",
+      "nome": "Sacolão",
+      "end": "Rua Damas Ribeiro 1234",
+      "ctt": "3198291199"
+    }
+  ],
+  "fornecedores": [
+    {
+      "id": "1",
+      "prioridade": "2",
+      "nome": "Seasa",
+      "end": "Rua Avenida 134",
+      "ctt": "3198388295"
+    }
+  ],
+  "rascunho": [
+    {
+      "id": "1",
+      "prioridade": "2",
+      "nome": "Mercearia",
+      "end": "Rua Avenida 134",
+      "ctt": "31984523345"
+    }
+  ]
+    }
+  
