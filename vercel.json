@@ -23,8 +23,12 @@
       "dest": "/codigo/assets/$1"
     },
     {
-      "src": "/(.*\\.html)",
+      "src": "/html/(.*)",
       "dest": "/codigo/html/$1"
+    },
+    {
+      "src": "/",
+      "dest": "/codigo/html/index.html"
     },
     {
       "src": "/(.*)",
