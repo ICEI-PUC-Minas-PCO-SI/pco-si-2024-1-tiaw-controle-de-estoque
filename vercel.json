@@ -7,36 +7,12 @@
       "config": {
         "includeFiles": ["codigo/assets/javascript/Json/login.json"]
       }
-    },
-    {
-      "src": "codigo/html/**/*",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "codigo/assets/**/*",
-      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "server.js"
-    },
-    {
-      "src": "/assets/(.*)",
-      "dest": "/codigo/assets/$1"
-    },
-    {
-      "src": "/html/(.*)",
-      "dest": "/codigo/html/$1"
-    },
-    {
-      "src": "/",
-      "dest": "/codigo/html/index.html"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/codigo/html/$1"
+      "dest": "server.js"
     }
   ]
 }
