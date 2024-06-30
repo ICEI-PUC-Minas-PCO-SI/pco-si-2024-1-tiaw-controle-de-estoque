@@ -19,6 +19,10 @@
   ],
   "routes": [
     {
+      "src": "/api/(.*)",
+      "dest": "server.js"
+    },
+    {
       "src": "/assets/(.*)",
       "dest": "/codigo/assets/$1"
     },
@@ -32,7 +36,8 @@
     },
     {
       "src": "/(.*)",
-      "dest": "server.js"
+      "dest": "/codigo/html/$1"
     }
   ]
 }
+
