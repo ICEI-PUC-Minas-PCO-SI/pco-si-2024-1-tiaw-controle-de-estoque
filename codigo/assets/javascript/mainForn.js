@@ -1,5 +1,5 @@
 // URL DA API DE DADOS
-URL = 'http://localhost:3000/fornecedores'
+URL = 'https://tiaw-dusky.vercel.app/fornecedores'
 //=================================================================================================
 // GET - Recupera todos os fornecedores e adiciona na tabela
 
