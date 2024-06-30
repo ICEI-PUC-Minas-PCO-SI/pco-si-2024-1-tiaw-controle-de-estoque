@@ -88,8 +88,10 @@
                     <span><strong>Nome do Comprador:</strong></span>
                     <span id="nomecomp"></span>
                     <br><br>
-                    <span><strong>Valor do pagamento:</strong></span>
-                    <span id="valorpag"></span>
+                    <span><strong>Valor das Parcelas:</strong></span>
+                    <span id="valorpag"></span><br><br>
+                    <span><Strong>Valor total:</Strong></span>
+                    <span id="valortotal"></span>
                     <br><br>
                     <span>*Esses dados são apenas para parâmetro, para a sua segurança, os dados do pagamento do plano
                         não serão mostrados aqui, para mostrar os cartões, adicione o cartão na seção abaixo</span>
@@ -426,18 +428,18 @@
             });
 
             document.addEventListener('DOMContentLoaded', function () {
-                const pagamentoinfo = JSON.parse(localStorage.getItem('pagamentoinfo'));
-                const planocomprado = JSON.parse(localStorage.getItem('planocompradoo'));
+                const pagamentoinfo = JSON.parse(localStorage.getItem('usuarioLogado'));
      
-                document.getElementById('nomeplano').innerHTML = planocomprado.titulo;
-                document.getElementById('contrat').innerHTML = pagamentoinfo.tipoplano;
-                document.getElementById('prox').innerHTML = pagamentoinfo.dataproxpagamento;
-                document.getElementById('pag').innerHTML = pagamentoinfo.datapagamento;
-                document.getElementById('tipocart').innerHTML = pagamentoinfo.formadepagamento;
-                document.getElementById('nomecard').innerHTML = pagamentoinfo.nocart;
-                document.getElementById('numcard').innerHTML = cartaooculto(pagamentoinfo.numcard);
-                document.getElementById('nomecomp').innerHTML = pagamentoinfo.nomecomple;
-                document.getElementById('valorpag').innerHTML = planocomprado.valor;
+                document.getElementById('nomeplano').innerHTML = pagamentoinfo.plano.tituloplano;
+                document.getElementById('contrat').innerHTML = pagamentoinfo.plano.Tipoplano;
+                document.getElementById('prox').innerHTML = pagamentoinfo.plano.dataproxpag;
+                document.getElementById('pag').innerHTML = pagamentoinfo.plano.datapag;
+                document.getElementById('tipocart').innerHTML = pagamentoinfo.plano.formadepagamento;
+                document.getElementById('nomecard').innerHTML = pagamentoinfo.plano.nocart;
+                document.getElementById('numcard').innerHTML = cartaooculto(pagamentoinfo.plano.numcard);
+                document.getElementById('nomecomp').innerHTML = pagamentoinfo.plano.nomecomple;
+                document.getElementById('valorpag').innerHTML = pagamentoinfo.plano.parcelame;
+                document.getElementById('valortotal').innerHTML = pagamentoinfo.plano.valortotal;
             });
 
             function cartaooculto(numCartao) {
@@ -448,6 +450,17 @@
         
         </script>
     </main>
+    <footer class='container-fluid bg-primary p-3 mt-3'
+    style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+    <img src='../assets/img/logo.png' style='width: 150px; margin: 30px; background-color: white; padding: 10px; border-radius: 10px; box-shadow: 3px 3px 5px 5px rgba(0, 0, 0, 0.147);'/>
+          <h2 class="text-white p-2" style="font-size: 50px;">DataStock</h2>
+          <p class="text-white">&copy; 2024 - Todos os direitos reservados</p>
+          <div><span><a href="./fale-conosco.html" style="color: white;" class="ms-3">Fale conosco</a></span>
+            <span><a href="./Planos.html" style="color: white;" class="ms-3">Planos</a></span>
+            <span><a href="https://www.reclameaqui.com.br" style="color: white;" class="ms-3">Reclame Aqui</a></span>
+            <span><a href="./sobrenos.html" style="color: white;" class="ms-3">Sobre nós</a></span></div>
+          
+  </footer>
 </body>
 
 </html>

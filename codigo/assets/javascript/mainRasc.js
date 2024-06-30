@@ -1,5 +1,5 @@
 // URL DA API DE DADOS
-URL = 'http://localhost:3000/rascunhos'
+URL = 'http://localhost:3000/rascunho'
 //=================================================================================================
 // GET - Recupera todos os rascunhos e adiciona na tabela
 
@@ -21,12 +21,12 @@ fetch(URL)
                 <td>
                     <a onclick="getRascunho(${rascunhos[i].id});" 
                     class="btn btn-info btn-xs" 
-                    data-toggle="modal" data-target="#rascunho-modal">
+                    data-bs-toggle="modal" data-bs-target="#rascunho-modal">
                     <i class="fa fa-edit"></i>  Editar
                     </a>
 
                     <a onclick="$('#id-rasc').text(${rascunhos[i].id});" class="btn btn-danger btn-xs" 
-                    data-toggle="modal" data-target="#modal-delete">
+                    data-bs-toggle="modal" data-bs-target="#modal-delete">
                     <i class="fa fa-trash"></i> Remover
                     </a>
                 </td>

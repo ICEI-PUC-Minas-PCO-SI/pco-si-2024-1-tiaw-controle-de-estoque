@@ -1,3 +1,27 @@
 {
-  "cartoes": []
+  "cartoes": [
+    {
+      "id": "ea81"
+    }
+  ],
+  "clientes": [
+    {
+      "id": "1",
+      "prioridade": "1",
+      "nome": "Sacolão",
+      "end": "Rua Damas Ribeiro 1234",
+      "ctt": "3198291195"
+    }
+  ],
+  "fornecedores": [],
+  "rascunho": [
+    {
+      "id": "23",
+      "prioridade": "2",
+      "tipo": "23",
+      "nome": "2323",
+      "end": "2323",
+      "ctt": "3"
+    }
+  ]
 }

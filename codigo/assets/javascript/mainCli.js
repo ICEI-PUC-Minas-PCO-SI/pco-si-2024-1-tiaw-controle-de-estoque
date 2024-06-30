@@ -5,7 +5,7 @@ URL = 'http://localhost:3000/clientes'
 
 const clienteList = document.getElementById('cliente-list');
 
-fetch(URL)
+fetch(URL) 
     .then(res => res.json())
     .then(clientes => {
         let lista_clientes = '';
