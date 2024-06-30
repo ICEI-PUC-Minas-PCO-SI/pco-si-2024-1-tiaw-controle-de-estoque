@@ -4,7 +4,7 @@
   "description": "DataStock é um sistema de gerenciamento de estoque para pequenas e médias empresas, com funcionalidades para registro de produtos, controle de estoque e geração de relatórios.",
   "main": "server.js",
   "scripts": {
-    "start": "json-server --watch codigo/assets/javascript/Json/login.json --port $PORT",
+    "start": "node server.js",
     "test": "echo \"No tests specified\" && exit 1"
   },
   "keywords": ["estoque", "gerenciamento", "json-server", "empresas pequenas e médias"],
