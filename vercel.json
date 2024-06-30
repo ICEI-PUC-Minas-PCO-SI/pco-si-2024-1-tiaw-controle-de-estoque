@@ -1,18 +1,19 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "codigo/**/*",
-        "use": "@vercel/static",
-        "config": {
-          "includeFiles": ["codigo/assets/javascript/Json/login.json"]
-        }
-      }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "codigo/$1"
-      }
-    ]
-  }
+  "version": 2,
+  "builds": [
+    {
+      "src": "codigo/html/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "codigo/assets/**/*",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/codigo/html/$1"
+    }
+  ]
+}
