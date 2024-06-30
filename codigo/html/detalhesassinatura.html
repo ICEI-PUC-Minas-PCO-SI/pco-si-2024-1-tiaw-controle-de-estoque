@@ -88,8 +88,10 @@
                     <span><strong>Nome do Comprador:</strong></span>
                     <span id="nomecomp"></span>
                     <br><br>
-                    <span><strong>Valor do pagamento:</strong></span>
-                    <span id="valorpag"></span>
+                    <span><strong>Valor das Parcelas:</strong></span>
+                    <span id="valorpag"></span><br><br>
+                    <span><Strong>Valor total:</Strong></span>
+                    <span id="valortotal"></span>
                     <br><br>
                     <span>*Esses dados são apenas para parâmetro, para a sua segurança, os dados do pagamento do plano
                         não serão mostrados aqui, para mostrar os cartões, adicione o cartão na seção abaixo</span>
@@ -205,245 +207,268 @@
         </div>
 
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
+    renderizarCartoes();
+});
+
+function gerarIdUnico() {
+    return '_' + Math.random().toString(36).substr(2, 9);
+}
+
+function adicionarCartao() {
+    const nocart = document.getElementById('nocart').value;
+    const valid = document.getElementById('valid').value;
+    const cvvv = document.getElementById('cvvv').value;
+    const nomecomple = document.getElementById('nomecomple').value;
+    const numerocart = formatarNumeroCartao(document.getElementById('numerocart').value);
+    const tipodocartao = document.getElementById('tipodocartao').value;
+
+    if (nocart.length >= 10 && cvvv.length == 3 && valid.length == 5 && numerocart.length == 19) {
+        const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+        const novoCartao = {
+            id: gerarIdUnico(),
+            "nocart": nocart,
+            "valid": valid,
+            "cvvv": cvvv,
+            "nomecomple": nomecomple,
+            "numcard": numerocart,
+            "tipodocartao": tipodocartao
+        };
+
+        usuarioLogado.cartoes = usuarioLogado.cartoes || [];
+        usuarioLogado.cartoes.push(novoCartao);
+
+        fetch(`http://localhost:3000/users/${usuarioLogado.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(usuarioLogado)
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Atualiza o usuário logado no localStorage
+            localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
+            // Renderiza os cartões novamente após adicionar
+            renderizarCartoes();
+            // Limpa o formulário após adicionar
+            document.getElementById('cartaoForm').reset();
+            // Mostra o toast de sucesso
+            mostrarToast('toastSucesso');
+        })
+        .catch(error => {
+            console.error('Erro ao adicionar cartão:', error);
+            mostrarToast('toastErro');
+        });
+    } else {
+        mostrarToast('toastErro');
+    }
+}
+
+function editarCartao(id) {
+    const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+    const cartao = usuarioLogado.cartoes.find(c => c.id === id);
+
+    if (cartao) {
+        // Preenche o formulário com os dados do cartão
+        document.getElementById('nocart').value = cartao.nocart;
+        document.getElementById('valid').value = cartao.valid;
+        document.getElementById('cvvv').value = cartao.cvvv;
+        document.getElementById('nomecomple').value = cartao.nomecomple;
+        document.getElementById('numerocart').value = cartao.numcard;
+        document.getElementById('tipodocartao').value = cartao.tipodocartao;
+
+        // Altera a função do botão "Adicionar" para "Salvar Alterações"
+        const modalFooter = document.querySelector('#exampleModal .modal-footer');
+        modalFooter.innerHTML = `
+            <button type="button" class="btn btn-success" onclick="salvarAlteracoes('${cartao.id}')">Salvar Alterações</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        `;
+    }
+}
+
+function salvarAlteracoes(id) {
+    const nocart = document.getElementById('nocart').value;
+    const valid = document.getElementById('valid').value;
+    const cvvv = document.getElementById('cvvv').value;
+    const nomecomple = document.getElementById('nomecomple').value;
+    const numerocart = formatarNumeroCartao(document.getElementById('numerocart').value);
+    const tipodocartao = document.getElementById('tipodocartao').value;
+
+    if (nocart.length >= 10 && valid.length == 5 && cvvv.length == 3 && nomecomple.length >= 10 && numerocart.length == 19) {
+        const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+        const cartaoIndex = usuarioLogado.cartoes.findIndex(c => c.id === id);
+
+        if (cartaoIndex !== -1) {
+            usuarioLogado.cartoes[cartaoIndex] = {
+                id,
+                nocart,
+                valid,
+                cvvv,
+                nomecomple,
+                numcard: numerocart,
+                tipodocartao
+            };
+
+            fetch(`http://localhost:3000/users/${usuarioLogado.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(usuarioLogado)
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Atualiza o usuário logado no localStorage
+                localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
+                // Renderiza os cartões novamente após editar
                 renderizarCartoes();
+                // Limpa o formulário após adicionar
+                document.getElementById('cartaoForm').reset();
+                // Fecha o modal de edição
+                const modal = document.getElementById('exampleModal');
+                const bootstrapModal = bootstrap.Modal.getInstance(modal);
+                bootstrapModal.hide();
+                // Mostra o toast de sucesso
+                mostrarToast('toastSucesso');
+            })
+            .catch(error => {
+                console.error('Erro ao salvar alterações:', error);
+                mostrarToast('toastErro');
             });
-        
-            function adicionarCartao() {
-                const nocart = document.getElementById('nocart').value;
-                const valid = document.getElementById('valid').value;
-                const cvvv = document.getElementById('cvvv').value;
-                const nomecomple = document.getElementById('nomecomple').value;
-                const numerocart = formatarNumeroCartao(document.getElementById('numerocart').value);
-                const tipodocartao = document.getElementById('tipodocartao').value;
-        
-                if (nocart.length >= 10 && cvvv.length ==3 && valid.length ==5 && numerocart.length == 19) {
-                    const pagamentoinfo3 = {
-                        "nocart": nocart,
-                        "valid": valid,
-                        "cvvv": cvvv,
-                        "nomecomple": nomecomple,
-                        "numcard": numerocart,
-                        "tipodocartao": tipodocartao
-                    };
-        
-                    fetch('http://localhost:3000/cartoes', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(pagamentoinfo3)
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            // Renderiza os cartões novamente após adicionar
-                            renderizarCartoes();
-                            // Limpa o formulário após adicionar
-                            document.getElementById('cartaoForm').reset();
-                            // Mostra o toast de sucesso
-                            mostrarToast('toastSucesso');
-                        })
-                        .catch(error => {
-                            console.error('Erro ao adicionar cartão:', error);
-                            mostrarToast('toastErro');
-                        });
-                } else {
-                    mostrarToast('toastErro');
-                }
-            }
-        
-            function editarCartao(id) {
-                fetch(`http://localhost:3000/cartoes/${id}`)
-                    .then(response => response.json())
-                    .then(cartao => {
-                        // Preenche o formulário com os dados do cartão
-                        document.getElementById('nocart').value = cartao.nocart;
-                        document.getElementById('valid').value = cartao.valid;
-                        document.getElementById('cvvv').value = cartao.cvvv;
-                        document.getElementById('nomecomple').value = cartao.nomecomple;
-                        document.getElementById('numerocart').value = cartao.numcard;
-                        document.getElementById('tipodocartao').value = cartao.tipodocartao;
-        
-                        // Altera a função do botão "Adicionar" para "Salvar Alterações"
-                        const modalFooter = document.querySelector('#exampleModal .modal-footer');
-                        modalFooter.innerHTML = `
-                            <button type="button" class="btn btn-success" onclick="salvarAlteracoes('${cartao.id}')">Salvar Alterações</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        `;
-                    })
-                    .catch(error => {
-                        console.error('Erro ao editar cartão:', error);
-                    });
-            }
-        
-            function salvarAlteracoes(id) {
-                const nocart = document.getElementById('nocart').value;
-                const valid = document.getElementById('valid').value;
-                const cvvv = document.getElementById('cvvv').value;
-                const nomecomple = document.getElementById('nomecomple').value;
-                const numerocart = formatarNumeroCartao(document.getElementById('numerocart').value);
-                const tipodocartao = document.getElementById('tipodocartao').value;
-        
-                if (nocart.length >= 10 && valid.length == 5 && cvvv.length == 3 && nomecomple.length >= 10 && numerocart.length == 19) {
-                    const dadosAtualizados = {
-                        "nocart": nocart,
-                        "valid": valid,
-                        "cvvv": cvvv,
-                        "nomecomple": nomecomple,
-                        "numcard": numerocart,
-                        "tipodocartao": tipodocartao
-                    };
-        
-                    fetch(`http://localhost:3000/cartoes/${id}`, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(dadosAtualizados)
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            // Renderiza os cartões novamente após editar
-                            renderizarCartoes();
-                            // Limpa o formulário após adicionar
-                            document.getElementById('cartaoForm').reset();
-                            // Fecha o modal de edição
-                            const modal = document.getElementById('exampleModal');
-                            const bootstrapModal = bootstrap.Modal.getInstance(modal);
-                            bootstrapModal.hide();
-                            // Mostra o toast de sucesso
-                            mostrarToast('toastSucesso');
-                        })
-                        .catch(error => {
-                            console.error('Erro ao salvar alterações:', error);
-                            mostrarToast('toastErro');
-                        });
-                } else {
-                    mostrarToast('toastErro');
-                }
-            }
-        
-            function renderizarCartoes() {
-                const cartoesTable = document.getElementById('cartoesTable').getElementsByTagName('tbody')[0];
-                cartoesTable.innerHTML = '';
-        
-                fetch('http://localhost:3000/cartoes')
-                    .then(response => response.json())
-                    .then(cartoes => {
-                        cartoes.forEach((cartao, index) => {
-                            const newRow = cartoesTable.insertRow();
-        
-                            // Adiciona cada valor do cartão em uma célula da nova linha
-                            Object.entries(cartao).forEach(([key, val]) => {
-                                // Verifica se a chave não é 'id' antes de adicionar à tabela
-                                if (key !== 'id') {
-                                    const newCell = newRow.insertCell();
-                                    const newText = document.createTextNode(val);
-                                    newCell.appendChild(newText);
-                                }
-                            });
-        
-                            // Cria as ações (editar e excluir) para cada cartão
-                            const actionsCell = newRow.insertCell();
-                            actionsCell.innerHTML = `
-                                <button class="btn btn-primary" onclick="editarCartao('${cartao.id}')" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button>
-                                <button class="btn btn-danger" onclick="excluirCartao('${cartao.id}')">Excluir</button>
-                            `;
-                        });
-                    })
-                    .catch(error => {
-                        console.error('Erro ao renderizar cartões:', error);
-                    });
-            }
-        
-            function excluirCartao(id) {
-                fetch(`http://localhost:3000/cartoes/${id}`, {
-                    method: 'DELETE'
-                })
-                    .then(() => {
-                        // Renderiza os cartões novamente após excluir
-                        renderizarCartoes();
-                        // Mostra o toast de sucesso
-                        mostrarToast('toastSucesso');
-                    })
-                    .catch(error => {
-                        console.error('Erro ao excluir cartão:', error);
-                        mostrarToast('toastErro');
-                    });
-            }
-        
-            function mostrarToast(toastId) {
-                const toastElement = document.getElementById(toastId);
-                const toast = new bootstrap.Toast(toastElement);
-                toast.show();
-            }
-        
-            // Função para formatar o número do cartão
-            function formatarNumeroCartao(numero) {
-                // Remove espaços em branco e formata com espaços a cada 4 dígitos
-                return numero.replace(/\s/g, '').replace(/(\d{4})(?=\d)/g, '$1 ');
-            }
-        
-            // Adiciona um listener para o evento 'input' no campo de número do cartão
-            document.getElementById('numerocart').addEventListener('input', function (e) {
-                let valorAtual = e.target.value;
-        
-                // Remove todos os caracteres não numéricos do valor atual
-                valorAtual = valorAtual.replace(/\D/g, '');
-        
-                // Limita a 16 caracteres
-                if (valorAtual.length > 16) {
-                    valorAtual = valorAtual.slice(0, 16);
-                }
-        
-                // Formata o valor e atualiza o campo
-                e.target.value = formatarNumeroCartao(valorAtual);
-            });
-        
-            // Função para formatar o campo de validade (MM/AA)
-            function formatarValidade(valor) {
-                // Remove todos os caracteres não numéricos do valor atual
-                valor = valor.replace(/\D/g, '');
-        
-                // Limita a 4 caracteres (dois dígitos para mês e dois para ano)
-                if (valor.length > 4) {
-                    valor = valor.slice(0, 4);
-                }
-        
-                // Insere o '/' automaticamente após os dois primeiros dígitos (mês)
-                if (valor.length > 2) {
-                    valor = valor.replace(/(\d{2})(\d{2})/, '$1/$2');
-                }
-        
-                return valor;
-            }
+        }
+    } else {
+        mostrarToast('toastErro');
+    }
+}
 
-        
-            // Adiciona um listener para o evento 'input' no campo de validade
-            document.getElementById('valid').addEventListener('input', function (e) {
-                let valorAtual = e.target.value;
-                e.target.value = formatarValidade(valorAtual);
-            });
+function renderizarCartoes() {
+    const cartoesTable = document.getElementById('cartoesTable').getElementsByTagName('tbody')[0];
+    cartoesTable.innerHTML = '';
 
-            document.addEventListener('DOMContentLoaded', function () {
-                const pagamentoinfo = JSON.parse(localStorage.getItem('pagamentoinfo'));
-                const planocomprado = JSON.parse(localStorage.getItem('planocompradoo'));
-     
-                document.getElementById('nomeplano').innerHTML = planocomprado.titulo;
-                document.getElementById('contrat').innerHTML = pagamentoinfo.tipoplano;
-                document.getElementById('prox').innerHTML = pagamentoinfo.dataproxpagamento;
-                document.getElementById('pag').innerHTML = pagamentoinfo.datapagamento;
-                document.getElementById('tipocart').innerHTML = pagamentoinfo.formadepagamento;
-                document.getElementById('nomecard').innerHTML = pagamentoinfo.nocart;
-                document.getElementById('numcard').innerHTML = cartaooculto(pagamentoinfo.numcard);
-                document.getElementById('nomecomp').innerHTML = pagamentoinfo.nomecomple;
-                document.getElementById('valorpag').innerHTML = planocomprado.valor;
-            });
+    const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+    const cartoes = usuarioLogado.cartoes || [];
 
-            function cartaooculto(numCartao) {
-                const numcartfor = numCartao.slice(-4); 
-                return `************${numcartfor}`; 
+    cartoes.forEach((cartao, index) => {
+        const newRow = cartoesTable.insertRow();
+
+        // Adiciona cada valor do cartão em uma célula da nova linha
+        Object.entries(cartao).forEach(([key, val]) => {
+            // Verifica se a chave não é 'id' antes de adicionar à tabela
+            if (key !== 'id') {
+                const newCell = newRow.insertCell();
+                const newText = document.createTextNode(val);
+                newCell.appendChild(newText);
             }
+        });
+
+        // Cria as ações (editar e excluir) para cada cartão
+        const actionsCell = newRow.insertCell();
+        actionsCell.innerHTML = `
+            <button class="btn btn-primary" onclick="editarCartao('${cartao.id}')" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button>
+            <button class="btn btn-danger" onclick="excluirCartao('${cartao.id}')">Excluir</button>
+        `;
+    });
+}
+
+function excluirCartao(id) {
+    const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+    usuarioLogado.cartoes = usuarioLogado.cartoes.filter(cartao => cartao.id !== id);
+
+    fetch(`http://localhost:3000/users/${usuarioLogado.id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(usuarioLogado)
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Atualiza o usuário logado no localStorage
+        localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
+        // Renderiza os cartões novamente após excluir
+        renderizarCartoes();
+        // Mostra o toast de sucesso
+        mostrarToast('toastSucesso');
+    })
+    .catch(error => {
+        console.error('Erro ao excluir cartão:', error);
+        mostrarToast('toastErro');
+    });
+}
+
+function mostrarToast(toastId) {
+    const toastElement = document.getElementById(toastId);
+    const toast = new bootstrap.Toast(toastElement);
+    toast.show();
+}
+
+// Função para formatar o número do cartão
+function formatarNumeroCartao(numero) {
+    // Remove espaços em branco e formata com espaços a cada 4 dígitos
+    return numero.replace(/\s/g, '').replace(/(\d{4})(?=\d)/g, '$1 ');
+}
+
+// Adiciona um listener para o evento 'input' no campo de número do cartão
+document.getElementById('numerocart').addEventListener('input', function (e) {
+    let valorAtual = e.target.value;
+
+    // Remove todos os caracteres não numéricos do valor atual
+    valorAtual = valorAtual.replace(/\D/g, '');
+
+    // Limita a 16 caracteres
+    if (valorAtual.length > 16) {
+        valorAtual = valorAtual.slice(0, 16);
+    }
+
+    // Formata o valor e atualiza o campo
+    e.target.value = formatarNumeroCartao(valorAtual);
+});
+
+// Função para formatar o campo de validade (MM/AA)
+function formatarValidade(valor) {
+    // Remove todos os caracteres não numéricos do valor atual
+    valor = valor.replace(/\D/g, '');
+
+    // Limita a 4 caracteres (dois dígitos para mês e dois para ano)
+    if (valor.length > 4) {
+        valor = valor.slice(0, 4);
+    }
+
+    // Insere o '/' automaticamente após os dois primeiros dígitos (mês)
+    if (valor.length > 2) {
+        valor = valor.replace(/(\d{2})(\d{2})/, '$1/$2');
+    }
+
+    return valor;
+}
+
+// Adiciona um listener para o evento 'input' no campo de validade
+document.getElementById('valid').addEventListener('input', function (e) {
+    let valorAtual = e.target.value;
+    e.target.value = formatarValidade(valorAtual);
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const pagamentoinfo = JSON.parse(localStorage.getItem('usuarioLogado'));
+
+    document.getElementById('nomeplano').innerHTML = pagamentoinfo.plano.tituloplano;
+    document.getElementById('contrat').innerHTML = pagamentoinfo.plano.Tipoplano;
+    document.getElementById('prox').innerHTML = pagamentoinfo.plano.dataproxpag;
+    document.getElementById('pag').innerHTML = pagamentoinfo.plano.datapag;
+    document.getElementById('tipocart').innerHTML = pagamentoinfo.plano.formadepagamento;
+    document.getElementById('nomecard').innerHTML = pagamentoinfo.plano.nocart;
+    document.getElementById('numcard').innerHTML = cartaooculto(pagamentoinfo.plano.numcard);
+    document.getElementById('nomecomp').innerHTML = pagamentoinfo.plano.nomecomple;
+    document.getElementById('valorpag').innerHTML = pagamentoinfo.plano.parcelame;
+    document.getElementById('valortotal').innerHTML = pagamentoinfo.plano.valortotal;
+});
+
+function cartaooculto(numCartao) {
+    const numcartfor = numCartao.slice(-4); 
+    return `************${numcartfor}`; 
+}
+
 
         
         </script>
@@ -452,10 +477,11 @@
     style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
     <img src='../assets/img/logo.png' style='width: 150px; margin: 30px; background-color: white; padding: 10px; border-radius: 10px; box-shadow: 3px 3px 5px 5px rgba(0, 0, 0, 0.147);'/>
           <h2 class="text-white p-2" style="font-size: 50px;">DataStock</h2>
-          <div><span><a href="" style="color: white;" class="ms-3">Fale conosco</a></span>
-            <span><a href="" style="color: white;" class="ms-3">Planos</a></span>
-            <span><a href="" style="color: white;" class="ms-3">Reclame Aqui</a></span>
-            <span><a href="" style="color: white;" class="ms-3">Configuração</a></span></div>
+          <p class="text-white">&copy; 2024 - Todos os direitos reservados</p>
+          <div><span><a href="./fale-conosco.html" style="color: white;" class="ms-3">Fale conosco</a></span>
+            <span><a href="./Planos.html" style="color: white;" class="ms-3">Planos</a></span>
+            <span><a href="https://www.reclameaqui.com.br" style="color: white;" class="ms-3">Reclame Aqui</a></span>
+            <span><a href="./sobrenos.html" style="color: white;" class="ms-3">Sobre nós</a></span></div>
           
   </footer>
 </body>

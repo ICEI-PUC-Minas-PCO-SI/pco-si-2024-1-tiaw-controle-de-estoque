@@ -68,64 +68,75 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+  var formExcluir = document.getElementById("prd3");
 
-  var formExcluir = document.getElementById("btn_excluir");
+  formExcluir.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-formExcluir.addEventListener("click", function (e) {
-  e.preventDefault();
+    var codigo = document.getElementById("cod_ex").value.trim();
 
-  var codigo = document.getElementById("cod_ex").value.trim();
-  var lote = document.getElementById("lote_ex").value.trim();
+    console.log("Código:", codigo);
 
-  excluirLinhaTabela(codigo, lote);
+    excluirLinhaTabela(codigo);
 
-  document.getElementById("cod_ex").value = "";
-  document.getElementById("lote_ex").value = "";
-  alert("Produto excluído!");
-});
+    document.getElementById("cod_ex").value = "";
+    alert("Matéria-prima excluída!");
+  });
 
-// Função para excluir uma linha da tabela e remover do localStorage
-function excluirLinhaTabela(codigo, lote) {
-  // Obtém a referência para a tabela
-  var tabelaa = document.getElementById("prod1");
+  // Função para excluir uma linha da tabela e remover do localStorage
+  function excluirLinhaTabela(codigo) {
+    // Obtém a referência para a tabela
+    var tabelaa = document.getElementById("tabela-corpomp");
 
-  // Percorre as linhas da tabela
-  for (var i = 1; i < tabelaa.rows.length; i++) {
-    var row = tabelaa.rows[i];
-    var codCell = row.cells[0]; // Coluna do código
-    var loteCell = row.cells[2]; // Coluna do lote
+    if (!tabelaa) {
+      console.error("Elemento com o ID 'tabela-corpomp' não encontrado.");
+      return;
+    }
 
-    // Verifica se o código e o lote da linha correspondem aos valores especificados
-    if (codCell.textContent.trim() === codigo && loteCell.textContent.trim() === lote) {
-      // Remove a linha da tabela visual
-      tabelaa.deleteRow(i);
+    // Percorre as linhas da tabela
+    for (var i = 1; i < tabelaa.rows.length; i++) {
+      var row = tabelaa.rows[i];
+      var codCell = row.cells[0];
 
-      // Remove o item correspondente do localStorage
-      removerItemLocalStorage(codigo, lote);
-      break;
+      // Verifica se o código e o lote da linha correspondem aos valores especificados
+      if (codCell.textContent.trim() === codigo) {
+        console.log("Linha encontrada:", row);
+
+        // Remove a linha da tabela visual
+        tabelaa.deleteRow(i);
+
+        // Remove o item correspondente do localStorage
+        removerItemLocalStorage(codigo);
+        break;
+      }
     }
   }
-}
 
-// Função para remover um item do localStorage
-function removerItemLocalStorage(codigo, lote) {
-  // Verifica se o item existe no localStorage
-  if (localStorage.hasOwnProperty("prod1")) {
-    // Recupera os dados do localStorage
-    var produtos = JSON.parse(localStorage.getItem("prod1"));
+  // Função para remover um item do localStorage
+  function removerItemLocalStorage(codigo) {
+    // Verifica se o item existe no localStorage
+    if (localStorage.hasOwnProperty("prod2")) {
+      // Recupera os dados do localStorage
+      var produtos = JSON.parse(localStorage.getItem("prod2"));
 
-    // Filtra o array de produtos para remover o item correspondente
-    produtos = produtos.filter(function (item) {
-      return item.cod1 !== codigo || item.loteprod1 !== lote;
-    });
+      console.log("Produtos antes da remoção:", produtos);
 
-    // Atualiza o localStorage com o novo array de produtos
-    localStorage.setItem("prod1", JSON.stringify(produtos));
+      // Filtra o array de produtos para remover o item correspondente
+      produtos = produtos.filter(function (item) {
+        return item.cod2 !== codigo;
+      });
+
+      console.log("Produtos depois da remoção:", produtos);
+
+      // Atualiza o localStorage com o novo array de produtos
+      localStorage.setItem("prod2", JSON.stringify(produtos));
+    } else {
+      console.log("Chave 'prod2' não encontrada no localStorage.");
+    }
   }
-}
-  
-    
-  
+
+
+
 
 
 
@@ -148,6 +159,9 @@ cadForm.addEventListener("submit", (e) => {
   var loteprod1 = document.getElementById('loteprod1').value;
   var qtdprod1 = document.getElementById('qtdprod1').value;
   var validprod1 = document.getElementById('validprod1').value;
+  var valor1 = document.getElementById('valor1').value;
+  var ncm1 = document.getElementById('ncm1').value;
+  var uni1 = document.getElementById('uni1').value;
   // O Array() é usado para criar Array de objetos
   let prod1 = new Array();
 
@@ -159,7 +173,7 @@ cadForm.addEventListener("submit", (e) => {
   }
 
   // Adiciona um novo objeto no array criado
-  prod1.push({ cod1, descprod1, loteprod1, qtdprod1, validprod1 });
+  prod1.push({ cod1, descprod1, loteprod1, qtdprod1, validprod1, valor1, ncm1, uni1 });
 
   // Salva no localStorage
   localStorage.setItem("prod1", JSON.stringify(prod1));
@@ -169,11 +183,52 @@ cadForm.addEventListener("submit", (e) => {
   document.getElementById("loteprod1").value = "";
   document.getElementById("qtdprod1").value = "";
   document.getElementById("validprod1").value = "";
+  document.getElementById("valor1").value = "";
+  document.getElementById("ncm1").value = "";
+  document.getElementById("uni1").value = "";
+
+
+
+  /*var descprod_v = [];
+  var qtdprod_v = [];
+  var validprod_v = [];
+  var valor_v = [];
+  var idprod_v = 0;
+  editIndex_v = -1;*/
+
+
+
+  descprod_v = document.getElementById('descprod1').value;
+  qtdprod_v = document.getElementById('qtdprod1').value;
+  validprod_v = document.getElementById('validprod1').value;
+  valor_v = document.getElementById('valor1').value;
+
+  // Verificar se já há dados no localStorage
+  var prod_v_json = localStorage.getItem('prod_v');
+
+  // Se houver dados, converter para objeto JSON
+  var prod_v = prod_v_json ? JSON.parse(prod_v_json) : {};
+
+  // Atualizar o objeto prod_v com os novos valores
+  prod_v.desc_v = prod_v.desc_v ? [...prod_v.desc_v, descprod1] : [descprod1];
+  prod_v.qtd_v = prod_v.qtd_v ? [...prod_v.qtd_v, qtdprod1] : [qtdprod1];
+  prod_v.valid_v = prod_v.valid_v ? [...prod_v.valid_v, validprod1] : [validprod1];
+  prod_v.valor_v = prod_v.valor_v ? [...prod_v.valor_v, valor1] : [valor1];
+
+  // Converter o objeto para string JSON
+  var prod_v_string = JSON.stringify(prod_v);
+
+  // Salvar no localStorage com o nome "prod_v"
+  localStorage.setItem('prod_v', prod_v_string);
+
+
+
+  
   location.reload();
 
   alert("Produção realizada com sucesso!")
 
- });
+});
 
 
 cadForm.addEventListener("reset", (e) => {
@@ -231,3 +286,17 @@ cadFormmp.addEventListener("reset", (e) => {
 });
 
 
+
+
+
+
+
+/*
+
+// Função para salvar os dados no localStorage
+function salvaprod_v() {
+  // Pegar os valores dos campos do formulário
+  
+
+}
+*/

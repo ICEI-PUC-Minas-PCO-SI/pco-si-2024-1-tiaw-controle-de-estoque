@@ -284,3 +284,6 @@ function deleteData(index) {
         showInfo();
     }
 }
+
+
+
