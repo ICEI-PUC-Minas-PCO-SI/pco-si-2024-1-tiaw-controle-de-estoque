@@ -7,7 +7,7 @@
     },
     {
       "src": "codigo/assets/**/*",
-      "use": "@vercel/static"
+      "use": "@vercel/node"
     }
     
   ],
