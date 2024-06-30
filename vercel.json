@@ -3,7 +3,7 @@
     "builds": [
       {
         "src": "codigo/**/*",
-        "use": "@vercel/node",
+        "use": "@vercel/static",
         "config": {
           "includeFiles": ["codigo/assets/javascript/Json/login.json"]
         }
