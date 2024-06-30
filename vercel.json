@@ -2,24 +2,33 @@
   "version": 2,
   "builds": [
     {
+      "src": "server.js",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": ["codigo/assets/javascript/Json/login.json"]
+      }
+    },
+    {
       "src": "codigo/html/**/*",
       "use": "@vercel/static"
     },
     {
       "src": "codigo/assets/**/*",
-      "use": "@vercel/node"
+      "use": "@vercel/static"
     }
-    
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/codigo/html/$1"
+      "dest": "server.js"
     },
     {
-      "src": "/codigo/assets/(.*)",
-      "dest": "/codigo/assets/$1"
+      "src": "/(codigo/.*)",
+      "dest": "/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/codigo/html/$1"
     }
-    
   ]
 }
