@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded',()=>{
     document.querySelector('.button-cadastro').addEventListener('click', () => {
-        alert('Botão de Cadastro clicado!');
+        
 });
 });
 document.addEventListener('DOMContentLoaded', () => {

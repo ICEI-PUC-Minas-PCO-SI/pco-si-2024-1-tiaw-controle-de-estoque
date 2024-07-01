@@ -19,6 +19,39 @@
         "tituloplano": "Avançado Mensal",
         "parcelame": "Plano não parcelado por ser mensal",
         "valortotal": "R$: XX,XX"
+      },
+      "Vendasgrafico": [
+        {
+          "mes": "Jun",
+          "ano": 2024,
+          "vendas": 20
+        },
+        {
+          "mes": "Jul",
+          "ano": 2024,
+          "vendas": 14
+        }
+      ]
+    },
+    {
+      "id": "f43f",
+      "nome": "j@a",
+      "email": "li@g",
+      "senha": "1",
+      "plano": {
+        "planoescolhido": "avancadomensal",
+        "dataproxpag": "30/07/2024",
+        "datapag": "30/06/2024",
+        "Tipoplano": "Mensal",
+        "formadepagamento": "Crédito",
+        "nocart": "Gabriel M Magri",
+        "valid": "11/11",
+        "cvv": "111",
+        "nomecomple": "Gabriel Henrique Machado Magri",
+        "numcard": "1111 1111 1111 1111",
+        "tituloplano": "Avançado Mensal",
+        "parcelame": "Plano não parcelado por ser mensal",
+        "valortotal": "R$: XX,XX"
       }
     }
   ],
@@ -49,5 +82,4 @@
       "ctt": "31984523345"
     }
   ]
-    }
-  
+}
