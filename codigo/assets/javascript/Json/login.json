@@ -19,7 +19,19 @@
         "tituloplano": "Avançado Mensal",
         "parcelame": "Plano não parcelado por ser mensal",
         "valortotal": "R$: XX,XX"
-      }
+      },
+      "Vendasgrafico": [
+        {
+          "mes": "Jun",
+          "ano": 2024,
+          "vendas": 14
+        },
+        {
+          "mes": "Mai",
+          "ano": 2024,
+          "vendas": 51
+        }
+      ]
     }
   ],
   "clientes": [
@@ -36,7 +48,7 @@
       "id": "1",
       "prioridade": "2",
       "nome": "Seasa",
-      "end": "Rua Avenida 134",
+      "end": "Rua Avenida 132",
       "ctt": "3198388295"
     }
   ],
@@ -49,5 +61,4 @@
       "ctt": "31984523345"
     }
   ]
-    }
-  
+}
