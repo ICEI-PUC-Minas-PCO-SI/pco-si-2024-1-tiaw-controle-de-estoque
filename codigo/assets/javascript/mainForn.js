@@ -31,9 +31,9 @@ fetch(URL)
                 </td>
             </tr>
             `;
-            fornecedorList.innerHTML = lista_fornecedores; 
         }
-    });
+        fornecedorList.innerHTML = lista_fornecedores; 
+    })
 //=================================================================================================
 
 // DELETE - PROCEDIMENTO PARA EXCLUIR UM fornecedor
@@ -47,7 +47,10 @@ fornecedorDelete.addEventListener('click', (e) => {
         method: 'DELETE',
     })
     .then(res => res.json())
-    .then(() => location.reload());
+    .then(() => {
+        $('#modal-delete').modal('hide');  // Fecha o modal após a exclusão
+        location.reload();
+    });
 
 })
 //=================================================================================================
@@ -85,6 +88,8 @@ const fornecedorForm = document.getElementById('fornecedor-form');
 
 fornecedorForm.addEventListener('submit', (e) => {
 
+    e.preventDefault();  // Evita o comportamento padrão do formulário
+
     // RECUPERA O ID DO fornecedor
     let id = parseInt($('#edit-forn-id').text());    
 
@@ -106,7 +111,10 @@ fornecedorForm.addEventListener('submit', (e) => {
             body: fornecedor
         })
         .then(res => res.json())
-        .then(() => location.reload());  
+        .then(() => {
+            $('#fornecedor-modal').modal('hide');  // Fecha o modal após a atualização
+            location.reload();
+        });  
     }
     else{ 
         fetch(URL, {
@@ -117,7 +125,10 @@ fornecedorForm.addEventListener('submit', (e) => {
             body: fornecedor
         })
         .then(res => res.json())
-        .then(() => location.reload());  
+        .then(() => {
+            $('#fornecedor-modal').modal('hide');  // Fecha o modal após a criação
+            location.reload();
+        });  
     }      
 })
 //=================================================================================================
