@@ -116,13 +116,10 @@
         <button type="button" id="btn_prod" class="btn btn-outline-primary col-lg-2 col-5 col-md-3 mb-2 ms-2"><img
             src="../assets/img/add.png" alt="" style="width:30px;"><strong>Iniciar Produção</strong></button>
 
-        <button type="button" id="btn_edit" class="btn btn-outline-primary col-lg-2 col-5 col-md-3 mb-2 ms-2"><img
-            src="../assets/img/edit.png" alt="" style="width:30px;"><strong>Editar Produção</strong></button>
-
         <button type="button" id="btn_novo" class="btn btn-outline-primary col-lg-2 col-5 col-md-3 mb-2 ms-2"><img
             src="../assets/img/rascunho.png" alt="" style="width:30px;"><strong>Nova matéria-prima</strong></button>
 
-        <button type="button" id="btn_editmp" class="btn btn-outline-primary col-lg-2 col-5 col-md-3 mb-2 ms-2"><img
+        <button type="button" id="btn_edit" class="btn btn-outline-primary col-lg-2 col-5 col-md-3 mb-2 ms-2"><img
             src="../assets/img/edit.png" alt="" style="width:30px;"><strong>Editar matéria-prima</strong></button>
 
         <button type="button" id="btn_ex" class="btn btn-outline-primary col-lg-2 col-5 col-md-2 mb-2 ms-2"><img
@@ -167,13 +164,13 @@
             </div>
 
             <div class="m-2 lineinput">
-              <label>NCM</label>
-              <input type="text" id="ncm1" placeholder="NCM do produto">
+              <label>Unidade</label>
+              <input type="text" id="uni1" placeholder="Unidade do produto (ex.: unidade, caixa, pacote...)">
             </div>
 
             <div class="m-2 lineinput">
-              <label>Unidade</label>
-              <input type="text" id="uni1" placeholder="Unidade do produto (ex.: unidade, caixa, pacote...)">
+              <label>Matérias-primas</label>
+              <input type="text" id="ncm1" placeholder="Matérias-primas que compoem o produto">
             </div>
 
             <input class="p-2 mb-2 mt-2 ms-2 bg-primary routend text-white" type="submit" value="Salvar">
@@ -188,24 +185,18 @@
           <form>
             <div class="m-2 lineinput">
               <label>Código</label>
-              <input type="text" id="codedit" placeholder="Código do produto que será editado">
-              <input class="p-2 mb-2 mt-2 ms-2 bg-primary routend text-white" type="submit" value="Buscar">
-            </div>
-
-            <div class=" m-2 lineinput">
-              <label>Lote</label>
-              <input type="text" id="loteprod1" placeholder="Novo número de lote">
-              <!--Será buscado automaticamente sendo o próximo na sequencia de lotes do determinado produto-->
+              <input type="text" id="codedit" placeholder="Código da matéria-prima que será editada">
+              <button class="p-2 mb-2 mt-2 ms-2 bg-primary routend text-white" id="buscaedit">Buscar</button>
             </div>
 
             <div class="m-2 lineinput">
               <label>Quantidade</label>
-              <input type="text" id="qtdprod1" placeholder="Quantidade a ser produzida">
+              <input type="text" id="qtdedit" placeholder="Editar quantidade">
             </div>
 
             <div class="m-2 lineinput">
               <label>Validade</label>
-              <input type="text" id="validprod1" placeholder="Validade para este lote">
+              <input type="text" id="validedit" placeholder="Editar validade">
             </div>
 
             <input class="p-2 mb-2 mt-2 ms-2 bg-primary routend text-white" type="submit" value="Salvar">
@@ -315,8 +306,8 @@
                   <th class="bg-primary border-white text-white" scope="col">Qtd. Lote</th>
                   <th class="bg-primary border-white text-white" scope="col">Validade Lote</th>
                   <th class="bg-primary border-white text-white" scope="col">Valor unitário</th>
-                  <th class="bg-primary border-white text-white" scope="col">NCM</th>
                   <th class="bg-primary border-white text-white" scope="col">Unidade</th>
+                  <th class="bg-primary border-white text-white" scope="col">Matérias-primas</th>
                 </tr>
               </thead>
 
@@ -347,7 +338,7 @@
           <div class="table-responsive">
 
 
-            <form id="filtro2">
+            <!--<form id="filtro2">
               <input type="checkbox" id="checkcodmp" name="codigo" value="checkcod" class="valores">
               <label for="checkcod"> Código</label><br>
               <input type="checkbox" id="checkdescmp" name="descricao" value="checkdesc" class="valores">
@@ -364,7 +355,7 @@
                 value="Filtrar">
               <input id="filtro04" class="p-2 mb-2 mt-2 ms-2 bg-primary routend text-white" type="submit"
                 value="Cancelar filtro"><br><br>
-            </form>
+            </form> -->
 
 
 
@@ -441,8 +432,8 @@
           <td>${item.qtdprod1}</td>
           <td>${item.validprod1}</td>
           <td>${item.valor1}</td>
-          <td>${item.ncm1}</td>
           <td>${item.uni1}</td>
+          <td>${item.ncm1}</td>
         `;
           }
         });
@@ -464,8 +455,8 @@
           <td>${item.qtdprod1}</td>
           <td>${item.validprod1}</td>
           <td>${item.valor1}</td>
-          <td>${item.ncm1}</td>
           <td>${item.uni1}</td>
+          <td>${item.ncm1}</td>
         `;
         });
       }
@@ -511,9 +502,11 @@
         tableprd.sort((a, b) => a.cod1.localeCompare(b.cod1));
         tabelacompleta(tableprd);
 
-        let tableprdmp = JSON.parse(localStorage.getItem("prod2")) || [];
+       /* let tableprdmp = JSON.parse(localStorage.getItem("prod2")) || [];
         tableprdmp.sort((a, b) => a.cod2.localeCompare(b.cod2));
-        tabelacompletamp(tableprdmp);
+        tabelacompletamp(tableprdmp);*/
+
+        preencherTabelamp();
 
 
       }
@@ -525,7 +518,7 @@
       });
 
       const btnsemfiltro = document.getElementById("filtro02");
-      btnsemfiltro.addEventListener("click", function (event) {
+      btnsemfiltro.addEventListener("submit", function (event) {
         event.preventDefault();
         tabelacompleta(tableprd);
       });
@@ -547,7 +540,7 @@
 
     <script>
 
-      var maismp = 0;
+     /* var maismp = 0;
 
 
       function preencherTabelamp() {
@@ -610,11 +603,11 @@
           <td>${item.validprod2}</td>
     `;
         });
-      }
+      } */
 
 
 
-      function aplicarFiltrosmp() {
+      /*function aplicarFiltrosmp() {
         const inputbuscamp = document.getElementById('searchInputmp');
         const expressaomp = inputbuscamp.value.toLowerCase();
 
@@ -660,7 +653,7 @@
       btnsemfiltromp.addEventListener("click", function (event) {
         event.preventDefault();
         tabelacompletamp(tableprdmp);
-      });
+      }); */
 
       /* const btnGerarLinhas = document.getElementById("btnGerarLinhas");
        btnGerarLinhas.addEventListener("click", function (event) {
