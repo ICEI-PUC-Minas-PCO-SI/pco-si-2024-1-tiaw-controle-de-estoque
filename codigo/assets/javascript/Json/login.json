@@ -24,11 +24,16 @@
         {
           "mes": "Jun",
           "ano": 2024,
+<<<<<<< HEAD
           "vendas": 20
+=======
+          "vendas": 14
+>>>>>>> 29b035b23b189058fbd0cd0b2d18b736a67afb5d
         },
         {
           "mes": "Jul",
           "ano": 2024,
+<<<<<<< HEAD
           "vendas": 14
         }
       ]
@@ -53,13 +58,18 @@
         "parcelame": "Plano não parcelado por ser mensal",
         "valortotal": "R$: XX,XX"
       }
+=======
+          "vendas": 51
+        }
+      ]
+>>>>>>> 29b035b23b189058fbd0cd0b2d18b736a67afb5d
     }
   ],
   "clientes": [
     {
       "id": "1",
       "prioridade": "1",
-      "nome": "Sacolão",
+      "nome": "Padaria",
       "end": "Rua Damas Ribeiro 1234",
       "ctt": "3198291199"
     }
@@ -69,8 +79,8 @@
       "id": "1",
       "prioridade": "2",
       "nome": "Seasa",
-      "end": "Rua Avenida 134",
-      "ctt": "3198388295"
+      "end": "Rua Avenida 223",
+      "ctt": "3198388299"
     }
   ],
   "rascunho": [
@@ -80,6 +90,13 @@
       "nome": "Mercearia",
       "end": "Rua Avenida 134",
       "ctt": "31984523345"
+    },
+    {
+      "id": "3",
+      "prioridade": "1",
+      "nome": "Sacolão",
+      "end": "Rua Macachalis 110",
+      "ctt": "21992953444"
     }
   ]
 }

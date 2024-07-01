@@ -1,5 +1,5 @@
 // URL DA API DE DADOS
-URL = 'https://tiaw-dusky.vercel.app/clientes'
+URL = 'http://localhost:3000/clientes'
 //=================================================================================================
 // GET - Recupera todos os clientes e adiciona na tabela
 
