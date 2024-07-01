@@ -1,5 +1,5 @@
 // URL DA API DE DADOS
-URL = 'http://localhost:3000/cliente'
+URL = 'http://localhost:3000/clientes'
 //=================================================================================================
 // GET - Recupera todos os clientes e adiciona na tabela
 
