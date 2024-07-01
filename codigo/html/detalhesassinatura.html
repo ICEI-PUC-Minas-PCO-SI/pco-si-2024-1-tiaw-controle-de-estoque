@@ -224,46 +224,37 @@ function adicionarCartao() {
     const tipodocartao = document.getElementById('tipodocartao').value;
 
     if (nocart.length >= 10 && cvvv.length == 3 && valid.length == 5 && numerocart.length == 19) {
-        const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+        let usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado')) || {};
+        usuarioLogado.cartoes = usuarioLogado.cartoes || [];
+
         const novoCartao = {
             id: gerarIdUnico(),
-            "nocart": nocart,
-            "valid": valid,
-            "cvvv": cvvv,
-            "nomecomple": nomecomple,
-            "numcard": numerocart,
-            "tipodocartao": tipodocartao
+            nocart,
+            valid,
+            cvvv,
+            nomecomple,
+            numcard: numerocart,
+            tipodocartao
         };
 
-        usuarioLogado.cartoes = usuarioLogado.cartoes || [];
         usuarioLogado.cartoes.push(novoCartao);
 
-        fetch(`http://localhost:3000/users/${usuarioLogado.id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(usuarioLogado)
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Atualiza o usuário logado no localStorage
-            localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
-            // Renderiza os cartões novamente após adicionar
-            renderizarCartoes();
-            // Limpa o formulário após adicionar
-            document.getElementById('cartaoForm').reset();
-            // Mostra o toast de sucesso
-            mostrarToast('toastSucesso');
-        })
-        .catch(error => {
-            console.error('Erro ao adicionar cartão:', error);
-            mostrarToast('toastErro');
-        });
+        // Atualiza os dados no localStorage
+        localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
+
+        // Renderiza os cartões novamente após adicionar
+        renderizarCartoes();
+
+        // Limpa o formulário após adicionar
+        document.getElementById('cartaoForm').reset();
+
+        // Mostra o toast de sucesso
+        mostrarToast('toastSucesso');
     } else {
         mostrarToast('toastErro');
     }
 }
+
 
 function editarCartao(id) {
     const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
@@ -346,7 +337,7 @@ function renderizarCartoes() {
     const cartoesTable = document.getElementById('cartoesTable').getElementsByTagName('tbody')[0];
     cartoesTable.innerHTML = '';
 
-    const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+    let usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado')) || {};
     const cartoes = usuarioLogado.cartoes || [];
 
     cartoes.forEach((cartao, index) => {

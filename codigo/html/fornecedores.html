@@ -7,170 +7,254 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- BOOSTRAP e JQUERY -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script
-  src="https://code.jquery.com/jquery-3.7.1.js"
-  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-  crossorigin="anonymous"></script>
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-  
-
     <title>Fornecedores</title>
 </head>
 
 <body>
-
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="../html/telaempres.html">
-              <img src="../assets/img/logo.png" alt="DataStock" width="70" height="50">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-              aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-          </div>
-          <div class="collapse navbar-collapse m-2" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-              <a class="nav-link active" aria-current="page" href="telaempres.html">Inicio</a>
-              <a class="nav-link" aria-current="page" href="conf.html">Configuração</a>
+            <div class="container-fluid">
+                <a class="navbar-brand" href="../html/telaempres.html">
+                    <img src="../assets/img/logo.png" alt="DataStock" width="70" height="50">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
             </div>
-          </div>
+            <div class="collapse navbar-collapse m-2" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link active" aria-current="page" href="telaempres.html">Inicio</a>
+                    <a class="nav-link" aria-current="page" href="conf.html">Configuração</a>
+                </div>
+            </div>
         </nav>
-      </header>
-      <!-- Fim cabeçalho -->
-      <main>
+    </header>
+    <!-- Fim cabeçalho -->
+    <main>
         <!-- Inicio logo cliente -->
         <div class="container-fluid">
-          <div class="row">
-            <div class="col-lg-12 d-flex justify-content-center mb-3 mt-3" id="logocliente">
-               <div id="logocliente"
-                style="width: 100px; height: 100px; background-color: black; background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZcmPBsVjXbWFmp12w0eGNXpQP4gnFvClKkLhUMbqKig&s); background-position: center; background-repeat: no-repeat; background-size: cover;">
-              </div> 
+            <div class="row">
+                <div class="col-lg-12 d-flex justify-content-center mb-3 mt-3" id="logocliente">
+                    <div id="logocliente" style="width: 100px; height: 100px; background-color: black; background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZcmPBsVjXbWFmp12w0eGNXpQP4gnFvClKkLhUMbqKig&s); background-position: center; background-repeat: no-repeat; background-size: cover;">
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
         <!-- Fim logo Cliente -->
 
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Fornecedores</a>
+            </div>
+        </nav>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Fornecedores</a>
+        <div class="container">
+            <br />
+            <h2>
+                Fornecedores
+                <a onclick="getFornecedor(0)" class="btn btn-primary btn-xs pull-right" style="float:right" data-bs-toggle="modal" data-target="#fornecedor-modal">
+                    <i class="fa fa-plus"></i> Adicionar
+                </a>
+            </h2>
+            <hr />
+            <div class="row">
+                <div class="col-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th width=5%>#</th>
+                                <th width=30%>Prioridade</th>
+                                <th width=15%>Nome</th>
+                                <th width=15%>Local</th>
+                                <th width=15%>Contato</th>
+                                <th width=20%></th>
+                            </tr>
+                        </thead>
+                        <tbody id='fornecedor-list'>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-    </nav>
 
-    <div class="container">
-        <br />
-        <h2>
-            Fornecedores
-            <a onclick="getFornecedor(0)" class="btn btn-primary btn-xs pull-right" style="float:right"
-                data-bs-toggle="modal" data-target="#fornecedor-modal">
-                <i class="fa fa-plus"></i> Adicionar
-            </a>
-        </h2>
-        <hr />
-        <div class="row">
-            <div class="col-12">
-                <table class="table">
-                    <thead>
+        <!-- Modal de confirmação de remoção -->
+        <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirmação de remoção</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Você realmente deseja remover o fornecedor <span id="id-forn"></span>?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                        <button type="button" class="btn btn-primary" id="btn-delete">Sim</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal para preenchimento do formulário -->
+        <div class="modal fade" id="fornecedor-modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Fornecedor <span id="edit-forn-id"></span></h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="fornecedor-form" method="post" action="">
+                            <div class="form-group">
+                                <label for="fornecedor-id" class="col-form-label">Código:</label>
+                                <input type="number" class="form-control" id="fornecedor-id" min="1" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fornecedor-prioridade" class="col-form-label">Prioridade:</label>
+                                <input type="text" class="form-control" id="fornecedor-prioridade" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="fornecedor-nome" class="col-form-label">Nome:</label>
+                                <input type="text" step="0.01" class="form-control" id="fornecedor-nome" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="fornecedor-end" class="col-form-label">Endereço:</label>
+                                <input type="text" class="form-control" id="fornecedor-end" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="fornecedor-ctt" class="col-form-label">Contato:</label>
+                                <input type="text" class="form-control" id="fornecedor-ctt" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Salvar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class='container-fluid bg-primary p-3 mt-3' style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+            <img src='../assets/img/logo.png' style='width: 150px; margin: 30px; background-color: white; padding: 10px; border-radius: 10px; box-shadow: 3px 3px 5px 5px rgba(0, 0, 0, 0.147);' />
+            <h2 class="text-white p-2" style="font-size: 50px;">DataStock</h2>
+            <p class="text-white">&copy; 2024 - Todos os direitos reservados</p>
+            <div>
+                <span><a href="./fale-conosco.html" style="color: white;" class="ms-3">Fale conosco</a></span>
+                <span><a href="Planos.html" style="color: white;" class="ms-3">Planos</a></span>
+                <span><a href="https://www.reclameaqui.com.br" style="color: white;" class="ms-3" target="_blank">Reclame Aqui</a></span>
+                <span><a href="./sobrenos.html" style="color: white;" class="ms-3">Sobre nós</a></span>
+            </div>
+        </footer>
+
+        <script>
+            const fornecedorList = document.getElementById('fornecedor-list');
+
+            function getFornecedoresLocal() {
+                return JSON.parse(localStorage.getItem('fornecedores')) || [];
+            }
+
+            function saveFornecedoresLocal(fornecedores) {
+                localStorage.setItem('fornecedores', JSON.stringify(fornecedores));
+            }
+
+            function renderFornecedores() {
+                const fornecedores = getFornecedoresLocal();
+                let lista_fornecedores = '';
+                for (let i = 0; i < fornecedores.length; i++) {
+                    lista_fornecedores += `
                         <tr>
-                            <th width=5%>#</th>
-                            <th width=30%>Prioridade</th>
-                            <th width=15%>Nome</th>
-                            <th width=15%>Local</th>
-                            <th width=15%>Contato</th>
-                            <th width=20%></th>
+                            <th>${fornecedores[i].id}</th>
+                            <td>${fornecedores[i].prioridade}</td>
+                            <td>${fornecedores[i].nome}</td>
+                            <td>${fornecedores[i].end}</td>
+                            <td>${fornecedores[i].ctt}</td>
+                            <td>
+                                <a onclick="getFornecedor(${fornecedores[i].id});" class="btn btn-info btn-xs" data-bs-toggle="modal" data-bs-target="#fornecedor-modal">
+                                    <i class="fa fa-edit"></i> Editar
+                                </a>
+                                <a onclick="$('#id-forn').text(${fornecedores[i].id});" class="btn btn-danger btn-xs" data-bs-toggle="modal" data-bs-target="#modal-delete">
+                                    <i class="fa fa-trash"></i> Remover
+                                </a>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody id='fornecedor-list'>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+                    `;
+                }
+                fornecedorList.innerHTML = lista_fornecedores;
+            }
 
-    <!--
-            Modal apresentada para solicitar confirmação do usuário quanto à remoção dos dados
-        -->
-    <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Confirmação de remoção</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Você realmente deseja remover o fornecedor <span id="id-forn"></span>?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
-                    <button type="button" class="btn btn-primary" id="btn-delete">Sim</button>
-                </div>
-            </div>
-        </div>
-    </div>
+            renderFornecedores();
 
-    <!--  Modal apresentada para solicitar os dados para preenchimento do formulário -->
+            const fornecedorDelete = document.getElementById('btn-delete');
+            fornecedorDelete.addEventListener('click', () => {
+                const id = $('#id-forn').text();
+                let fornecedores = getFornecedoresLocal();
+                fornecedores = fornecedores.filter(f => f.id != id);
+                saveFornecedoresLocal(fornecedores);
+                $('#modal-delete').modal('hide');
+                location.reload();
+            });
 
-    <div class="modal fade" id="fornecedor-modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Fornecedor <span id="edit-forn-id"></span></h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="fornecedor-form" method="post" action="">
-                        <div class="form-group">
-                            <label for="fornecedor-id" class="col-form-label">Código:</label>
-                            <input type="number" class="form-control" id="fornecedor-id" min="1" required>
-                        </div>
+            function getFornecedor(id) {
+                if (id == 0) {
+                    $('#edit-forn-id').text("");
+                    $("#fornecedor-id").prop("disabled", false);
+                    $('#fornecedor-id').val("");
+                    $('#fornecedor-prioridade').val("");
+                    $('#fornecedor-nome').val("");
+                    $('#fornecedor-end').val("");
+                    $('#fornecedor-ctt').val("");
+                } else {
+                    $('#edit-forn-id').text(id);
+                    const fornecedores = getFornecedoresLocal();
+                    const fornecedor = fornecedores.find(f => f.id == id);
+                    if (fornecedor) {
+                        $("#fornecedor-id").prop("disabled", true);
+                        $('#fornecedor-id').val(fornecedor.id);
+                        $('#fornecedor-prioridade').val(fornecedor.prioridade);
+                        $('#fornecedor-nome').val(fornecedor.nome);
+                        $('#fornecedor-end').val(fornecedor.end);
+                        $('#fornecedor-ctt').val(fornecedor.ctt);
+                    }
+                }
+            }
 
-                        <div class="form-group">
-                            <label for="fornecedor-prioridade" class="col-form-label">Prioridade:</label>
-                            <input type="text" class="form-control" id="fornecedor-prioridade" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="fornecedor-nome" class="col-form-label">Nome:</label>
-                            <input type="text" step="0.01" class="form-control" id="fornecedor-nome" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="fornecedor-end" class="col-form-label">Endereço:</label>
-                            <input type="text" class="form-control" id="fornecedor-end" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="fornecedor_ctt" class="col-form-label">Contato:</label>
-                            <input type="text" class="form-control" id="fornecedor-ctt" required>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-primary">Salvar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+            const fornecedorForm = document.getElementById('fornecedor-form');
+            fornecedorForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                let id = parseInt($('#edit-forn-id').text());
+                let fornecedores = getFornecedoresLocal();
+                const novoFornecedor = {
+                    id: document.getElementById('fornecedor-id').value,
+                    prioridade: document.getElementById('fornecedor-prioridade').value,
+                    nome: document.getElementById('fornecedor-nome').value,
+                    end: document.getElementById('fornecedor-end').value,
+                    ctt: document.getElementById('fornecedor-ctt').value
+                };
 
-    <footer class='container-fluid bg-primary p-3 mt-3'
-    style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-    <img src='../assets/img/logo.png' style='width: 150px; margin: 30px; background-color: white; padding: 10px; border-radius: 10px; box-shadow: 3px 3px 5px 5px rgba(0, 0, 0, 0.147);'/>
-          <h2 class="text-white p-2" style="font-size: 50px;">DataStock</h2>
-          <p class="text-white">&copy; 2024 - Todos os direitos reservados</p>
-          <div><span><a href="./fale-conosco.html" style="color: white;" class="ms-3">Fale conosco</a></span>
-            <span><a href="Planos.html" style="color: white;" class="ms-3">Planos</a></span>
-            <span><a href="https://www.reclameaqui.com.br" style="color: white;" class="ms-3" target="_blank">Reclame Aqui</a></span>
-            <span><a href="./sobrenos.html" style="color: white;" class="ms-3">Sobre nós</a></span></div>
-          
-  </footer>
+                if (id >= 0) {
+                    const index = fornecedores.findIndex(f => f.id == id);
+                    if (index !== -1) {
+                        fornecedores[index] = novoFornecedor;
+                    }
+                } else {
+                    fornecedores.push(novoFornecedor);
+                }
 
-    <script src="/codigo/assets/javascript/mainForn.js"></script>
-
+                saveFornecedoresLocal(fornecedores);
+                $('#fornecedor-modal').modal('hide');
+                location.reload();
+            });
+        </script>
 </body>
 
 </html>

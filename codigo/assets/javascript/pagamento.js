@@ -39,66 +39,66 @@ var planoss2 = {
 var titulo;
 var total;
 
-async function armazenarPlano(pagamentoinfo) {
-    const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
-    const usuarioId = usuarioLogado.id;
+// async function armazenarPlano(pagamentoinfo) {
+//     const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+//     const usuarioId = usuarioLogado.id;
 
-    try {
-        const response = await fetch(`http://localhost:3000/users/${usuarioId}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                id: usuarioLogado.id,
-                nome: usuarioLogado.nome,
-                email: usuarioLogado.email,
-                senha: usuarioLogado.senha,
-                plano: {
-                    planoescolhido: pagamentoinfo.planoEscolhido,
-                    dataproxpag: pagamentoinfo.dataproxpagamento,
-                    datapag: pagamentoinfo.datapagamento,
-                    Tipoplano: pagamentoinfo.tipoplano,
-                    formadepagamento: pagamentoinfo.formadepagamento,
-                    nocart: pagamentoinfo.nocart,
-                    valid: pagamentoinfo.valid,
-                    cvv: pagamentoinfo.cvvv,
-                    nomecomple: pagamentoinfo.nomecomple,
-                    numcard: pagamentoinfo.numcard,
-                    tituloplano: pagamentoinfo.tituloplano,
-                    parcelame: pagamentoinfo.parcelame,
-                    valortotal: pagamentoinfo.valortotal,
-                }
-            })
-        });
+//     try {
+//         const response = await fetch(`http://localhost:3000/users/${usuarioId}`, {
+//             method: 'PUT',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify({
+//                 id: usuarioLogado.id,
+//                 nome: usuarioLogado.nome,
+//                 email: usuarioLogado.email,
+//                 senha: usuarioLogado.senha,
+//                 plano: {
+//                     planoescolhido: pagamentoinfo.planoEscolhido,
+//                     dataproxpag: pagamentoinfo.dataproxpagamento,
+//                     datapag: pagamentoinfo.datapagamento,
+//                     Tipoplano: pagamentoinfo.tipoplano,
+//                     formadepagamento: pagamentoinfo.formadepagamento,
+//                     nocart: pagamentoinfo.nocart,
+//                     valid: pagamentoinfo.valid,
+//                     cvv: pagamentoinfo.cvvv,
+//                     nomecomple: pagamentoinfo.nomecomple,
+//                     numcard: pagamentoinfo.numcard,
+//                     tituloplano: pagamentoinfo.tituloplano,
+//                     parcelame: pagamentoinfo.parcelame,
+//                     valortotal: pagamentoinfo.valortotal,
+//                 }
+//             })
+//         });
 
-        if (response.ok) {
-            console.log('Dados do usuário atualizados com sucesso!');
-            // Atualizar o LocalStorage com as novas informações do plano
-            usuarioLogado.plano = {
-                planoescolhido: pagamentoinfo.planoEscolhido,
-                dataproxpag: pagamentoinfo.dataproxpagamento,
-                datapag: pagamentoinfo.datapagamento,
-                Tipoplano: pagamentoinfo.tipoplano,
-                formadepagamento: pagamentoinfo.formadepagamento,
-                nocart: pagamentoinfo.nocart,
-                valid: pagamentoinfo.valid,
-                cvv: pagamentoinfo.cvvv,
-                nomecomple: pagamentoinfo.nomecomple,
-                numcard: pagamentoinfo.numcard,
-                tituloplano: pagamentoinfo.tituloplano,
-                parcelame: pagamentoinfo.parcelame,
-                valortotal: pagamentoinfo.valortotal,
-            };
-            localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
-        } else {
-            const errorData = await response.json();
-            console.error('Erro ao atualizar os dados do usuário:', response.status, errorData.error);
-        }
-    } catch (error) {
-        console.error('Erro ao atualizar os dados do usuário:', error.message);
-    }
-}
+//         if (response.ok) {
+//             console.log('Dados do usuário atualizados com sucesso!');
+//             // Atualizar o LocalStorage com as novas informações do plano
+//             usuarioLogado.plano = {
+//                 planoescolhido: pagamentoinfo.planoEscolhido,
+//                 dataproxpag: pagamentoinfo.dataproxpagamento,
+//                 datapag: pagamentoinfo.datapagamento,
+//                 Tipoplano: pagamentoinfo.tipoplano,
+//                 formadepagamento: pagamentoinfo.formadepagamento,
+//                 nocart: pagamentoinfo.nocart,
+//                 valid: pagamentoinfo.valid,
+//                 cvv: pagamentoinfo.cvvv,
+//                 nomecomple: pagamentoinfo.nomecomple,
+//                 numcard: pagamentoinfo.numcard,
+//                 tituloplano: pagamentoinfo.tituloplano,
+//                 parcelame: pagamentoinfo.parcelame,
+//                 valortotal: pagamentoinfo.valortotal,
+//             };
+//             localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
+//         } else {
+//             const errorData = await response.json();
+//             console.error('Erro ao atualizar os dados do usuário:', response.status, errorData.error);
+//         }
+//     } catch (error) {
+//         console.error('Erro ao atualizar os dados do usuário:', error.message);
+//     }
+// }
 
 
 

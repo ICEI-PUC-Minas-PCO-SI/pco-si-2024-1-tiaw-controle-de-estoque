@@ -1,134 +1,109 @@
-// URL DA API DE DADOS
-URL = 'http://localhost:3000/fornecedores'
-//=================================================================================================
-// GET - Recupera todos os fornecedores e adiciona na tabela
 
-const fornecedorList = document.getElementById('fornecedor-list');
+    const fornecedorList = document.getElementById('fornecedor-list');
 
-fetch(URL)
-    .then(res => res.json())
-    .then(fornecedores => {
+    function getFornecedoresLocal() {
+        return JSON.parse(localStorage.getItem('fornecedores')) || [];
+    }
+
+    function saveFornecedoresLocal(fornecedores) {
+        localStorage.setItem('fornecedores', JSON.stringify(fornecedores));
+    }
+
+    function renderFornecedores() {
+        const fornecedores = getFornecedoresLocal();
         let lista_fornecedores = '';
         for (let i = 0; i < fornecedores.length; i++) {
             lista_fornecedores += `
-            <tr>
-                <th>${fornecedores[i].id}</th>
-                <td>${fornecedores[i].prioridade}</td>
-                <td>${fornecedores[i].nome}</td>
-                <td>${fornecedores[i].end}</td>
-                <td>${fornecedores[i].ctt}</td>
-                <td>
-                    <a onclick="getFornecedor(${fornecedores[i].id});" 
-                    class="btn btn-info btn-xs" 
-                    data-bs-toggle="modal" data-bs-target="#fornecedor-modal">
-                    <i class="fa fa-edit"></i>  Editar
-                    </a>
+                <tr>
+                    <th>${fornecedores[i].id}</th>
+                    <td>${fornecedores[i].prioridade}</td>
+                    <td>${fornecedores[i].nome}</td>
+                    <td>${fornecedores[i].end}</td>
+                    <td>${fornecedores[i].ctt}</td>
+                    <td>
+                        <a onclick="getFornecedor(${fornecedores[i].id});" 
+                        class="btn btn-info btn-xs" 
+                        data-bs-toggle="modal" data-bs-target="#fornecedor-modal">
+                        <i class="fa fa-edit"></i>  Editar
+                        </a>
 
-                    <a onclick="$('#id-forn').text(${fornecedores[i].id});" class="btn btn-danger btn-xs" 
-                    data-bs-toggle="modal" data-bs-target="#modal-delete">
-                    <i class="fa fa-trash"></i> Remover
-                    </a>
-                </td>
-            </tr>
+                        <a onclick="$('#id-forn').text(${fornecedores[i].id});" class="btn btn-danger btn-xs" 
+                        data-bs-toggle="modal" data-bs-target="#modal-delete">
+                        <i class="fa fa-trash"></i> Remover
+                        </a>
+                    </td>
+                </tr>
             `;
         }
         fornecedorList.innerHTML = lista_fornecedores; 
-    })
-//=================================================================================================
+    }
 
-// DELETE - PROCEDIMENTO PARA EXCLUIR UM fornecedor
-const fornecedorDelete = document.getElementById('btn-delete');
+    renderFornecedores();
 
-fornecedorDelete.addEventListener('click', (e) => {
+    // DELETE - PROCEDIMENTO PARA EXCLUIR UM fornecedor
+    const fornecedorDelete = document.getElementById('btn-delete');
 
-    let id = $('#id-forn').text();
-
-    fetch(`${URL}/${id}`, {
-        method: 'DELETE',
-    })
-    .then(res => res.json())
-    .then(() => {
+    fornecedorDelete.addEventListener('click', (e) => {
+        const id = $('#id-forn').text();
+        let fornecedores = getFornecedoresLocal();
+        fornecedores = fornecedores.filter(f => f.id != id);
+        saveFornecedoresLocal(fornecedores);
         $('#modal-delete').modal('hide');  // Fecha o modal após a exclusão
         location.reload();
     });
 
-})
-//=================================================================================================
-
-// PROCEDIMENTO PARA RECUPERAR OS DADOS DE UM fornecedor NA API
-function getFornecedor(id){
-
-    if(id == 0){
-        $('#edit-forn-id').text("");
-        $( "#fornecedor-id" ).prop( "disabled", false );
-        $('#fornecedor-id').val("");
-        $('#fornecedor-prioridade').val("");
-        $('#fornecedor-nome').val("");
-        $('#fornecedor-end').val("");
-        $('#fornecedor-ctt').val("");
-    }else{
-        $('#edit-forn-id').text(id);
-        fetch(`${URL}/${id}`).then(res => res.json())    
-        .then(data => {
-            $( "#fornecedor-id" ).prop( "disabled", true );
-            $('#fornecedor-id').val(data.id);
-            $('#fornecedor-prioridade').val(data.prioridade);
-            $('#fornecedor-nome').val(data.nome);
-            $('#fornecedor-end').val(data.end);
-            $('#fornecedor-ctt').val(data.ctt);
-        });
-    }    
-}
-
-//=================================================================================================
-
-// CREATE or UPDATE - PROCEDIMENTO PARA CRIAR OU EDITAR UM fornecedor
-
-const fornecedorForm = document.getElementById('fornecedor-form');
-
-fornecedorForm.addEventListener('submit', (e) => {
-
-    e.preventDefault();  // Evita o comportamento padrão do formulário
-
-    // RECUPERA O ID DO fornecedor
-    let id = parseInt($('#edit-forn-id').text());    
-
-    // RECUPERA OS DADOS DO fornecedor
-    const fornecedor = JSON.stringify({
-        id: document.getElementById('fornecedor-id').value,
-        prioridade: document.getElementById('fornecedor-prioridade').value,
-        nome: document.getElementById('fornecedor-nome').value,
-        end: document.getElementById('fornecedor-end').value,
-        ctt: document.getElementById('fornecedor-ctt').value
-    })
-
-    if (id >= 0) {
-        fetch(`${URL}/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: fornecedor
-        })
-        .then(res => res.json())
-        .then(() => {
-            $('#fornecedor-modal').modal('hide');  // Fecha o modal após a atualização
-            location.reload();
-        });  
+    // PROCEDIMENTO PARA RECUPERAR OS DADOS DE UM fornecedor
+    function getFornecedor(id) {
+        if(id == 0){
+            $('#edit-forn-id').text("");
+            $("#fornecedor-id").prop("disabled", false);
+            $('#fornecedor-id').val("");
+            $('#fornecedor-prioridade').val("");
+            $('#fornecedor-nome').val("");
+            $('#fornecedor-end').val("");
+            $('#fornecedor-ctt').val("");
+        } else {
+            $('#edit-forn-id').text(id);
+            const fornecedores = getFornecedoresLocal();
+            const fornecedor = fornecedores.find(f => f.id == id);
+            if (fornecedor) {
+                $("#fornecedor-id").prop("disabled", true);
+                $('#fornecedor-id').val(fornecedor.id);
+                $('#fornecedor-prioridade').val(fornecedor.prioridade);
+                $('#fornecedor-nome').val(fornecedor.nome);
+                $('#fornecedor-end').val(fornecedor.end);
+                $('#fornecedor-ctt').val(fornecedor.ctt);
+            }
+        }    
     }
-    else{ 
-        fetch(URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: fornecedor
-        })
-        .then(res => res.json())
-        .then(() => {
-            $('#fornecedor-modal').modal('hide');  // Fecha o modal após a criação
-            location.reload();
-        });  
-    }      
-})
-//=================================================================================================
+
+    // CREATE or UPDATE - PROCEDIMENTO PARA CRIAR OU EDITAR UM fornecedor
+    const fornecedorForm = document.getElementById('fornecedor-form');
+
+    fornecedorForm.addEventListener('submit', (e) => {
+        e.preventDefault();  // Evita o comportamento padrão do formulário
+
+        let id = parseInt($('#edit-forn-id').text());
+        let fornecedores = getFornecedoresLocal();
+
+        const novoFornecedor = {
+            id: document.getElementById('fornecedor-id').value,
+            prioridade: document.getElementById('fornecedor-prioridade').value,
+            nome: document.getElementById('fornecedor-nome').value,
+            end: document.getElementById('fornecedor-end').value,
+            ctt: document.getElementById('fornecedor-ctt').value
+        };
+
+        if (id >= 0) {
+            const index = fornecedores.findIndex(f => f.id == id);
+            if (index !== -1) {
+                fornecedores[index] = novoFornecedor;
+            }
+        } else {
+            fornecedores.push(novoFornecedor);
+        }
+
+        saveFornecedoresLocal(fornecedores);
+        $('#fornecedor-modal').modal('hide');  // Fecha o modal após a criação ou atualização
+        location.reload();
+    });
